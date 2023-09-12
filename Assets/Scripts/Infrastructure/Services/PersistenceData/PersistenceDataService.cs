@@ -1,9 +1,9 @@
 using Infrastructure.Data;
 using Infrastructure.Services.PersistenceProgress.Core;
 
-namespace Infrastructure.Services.PersistenceProgress
+namespace Infrastructure.Services.PersistenceData
 {
-    public class PersistenceProgressService : IPersistenceProgressService
+    public class PersistenceDataService : IPersistenceDataService
     {
         public PlayerData PlayerData { get; set; }
     }
