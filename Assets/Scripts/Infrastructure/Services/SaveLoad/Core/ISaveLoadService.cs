@@ -1,6 +1,6 @@
-﻿namespace Infrastructure.Services.Data.Core
+﻿namespace Infrastructure.Services.SaveLoad.Core
 {
-    public interface IDataService
+    public interface ISaveLoadService
     {
         public void Save<T>(T data, string key);
 

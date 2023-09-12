@@ -1,10 +1,10 @@
-﻿using Infrastructure.Services.Data.Core;
+﻿using Infrastructure.Services.SaveLoad.Core;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Infrastructure.Services.Data
+namespace Infrastructure.Services.SaveLoad
 {
-    public class DataService : IDataService
+    public class SaveLoadService : ISaveLoadService
     {
         public void Save<T>(T data, string key)
         {
