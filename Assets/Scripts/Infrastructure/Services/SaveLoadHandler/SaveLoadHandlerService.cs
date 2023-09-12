@@ -21,8 +21,6 @@ namespace Infrastructure.Services.SaveLoadHandler
             {
                 saveHandler.Save();
             }
-
-            Debug.Log("Saved");
         }
 
         public void Load()
