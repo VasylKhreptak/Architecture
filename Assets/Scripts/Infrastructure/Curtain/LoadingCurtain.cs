@@ -11,6 +11,7 @@ namespace Infrastructure.Curtain
         [SerializeField] private RectTransform _rectTransform;
 
         [Header("Preferences")]
+        [SerializeField] private float _delay = 0.3f;
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
 
@@ -46,6 +47,7 @@ namespace Infrastructure.Curtain
 
             _moveTween = _rectTransform
                 .DOAnchorPosY(_rectTransform.rect.height, _duration)
+                .SetDelay(_delay)
                 .OnComplete(() =>
                 {
                     gameObject.SetActive(false);
