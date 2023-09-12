@@ -11,17 +11,17 @@ namespace Infrastructure.Services.PersistenceData
 
         private ISaveLoadService _saveLoadService;
 
+        public PlayerData PlayerData { get; set; }
+
         [Inject]
         private void Constructor(ISaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;
         }
 
-        public PlayerData PlayerData { get; set; }
-
         public void Save()
         {
-            _saveLoadService.Save(PlayerDataKey, PlayerDataKey);
+            _saveLoadService.Save(PlayerData, PlayerDataKey);
         }
 
         public void Load()
