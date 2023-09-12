@@ -2,7 +2,7 @@
 using Infrastructure.Services.PersistenceData.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class PersistenceDataServiceInstaller : MonoInstaller
     {

@@ -2,7 +2,7 @@
 using Infrastructure.Services.Log.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class LogServiceInstaller : MonoInstaller
     {

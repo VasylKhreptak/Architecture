@@ -1,11 +1,10 @@
-﻿using System.Runtime.InteropServices;
-using Infrastructure.Services.PersistenceData.Core;
+﻿using Infrastructure.Services.PersistenceData.Core;
 using Infrastructure.Services.SaveLoadHandler;
 using Infrastructure.Services.SaveLoadHandler.Core;
 using Infrastructure.Services.StaticData.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class SaveLoadHandlerServiceInstaller : MonoInstaller
     {

@@ -2,7 +2,7 @@
 using Infrastructure.Services.StaticData.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class StaticDataServiceInstaller : MonoInstaller
     {

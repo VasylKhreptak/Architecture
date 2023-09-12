@@ -2,7 +2,7 @@
 using Infrastructure.Services.SaveLoad.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class SaveLoadServiceInstaller : MonoInstaller
     {

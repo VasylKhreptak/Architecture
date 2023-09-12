@@ -2,7 +2,7 @@
 using Infrastructure.SceneManagement.Core;
 using Zenject;
 
-namespace Infrastructure.Zenject.Installers.ProjectContext
+namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
     public class SceneLoaderServiceInstaller : MonoInstaller
     {
