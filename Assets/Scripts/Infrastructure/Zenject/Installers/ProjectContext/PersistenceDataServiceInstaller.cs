@@ -8,8 +8,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
     {
         public override void InstallBindings()
         {
-            IPersistenceDataService persistenceDataService = Container.Instantiate<PersistenceDataService>();
-            Container.BindInstance(persistenceDataService).AsSingle();
+            Container.Bind<IPersistenceDataService>().To<PersistenceDataService>().AsSingle();
         }
     }
 }

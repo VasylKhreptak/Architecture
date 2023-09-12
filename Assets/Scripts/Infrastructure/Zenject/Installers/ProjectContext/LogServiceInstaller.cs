@@ -8,8 +8,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
     {
         public override void InstallBindings()
         {
-            ILogService logService = Container.Instantiate<LogService>();
-            Container.BindInstance(logService).AsSingle();
+            Container.Bind<ILogService>().To<LogService>().AsSingle();
         }
     }
 }

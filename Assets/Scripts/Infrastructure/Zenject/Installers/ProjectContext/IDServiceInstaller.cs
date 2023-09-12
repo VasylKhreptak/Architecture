@@ -8,7 +8,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
     {
         public override void InstallBindings()
         {
-            Container.Bind<IIDService>().FromInstance(new IDService()).AsSingle();
+            Container.Bind<IIDService>().To<IDService>().AsSingle();
         }
     }
 }

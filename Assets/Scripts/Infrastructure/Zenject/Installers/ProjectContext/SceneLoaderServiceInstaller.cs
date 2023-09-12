@@ -8,8 +8,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
     {
         public override void InstallBindings()
         {
-            ISceneLoader sceneLoaderInterface = Container.Instantiate<SceneLoader>();
-            Container.BindInstance(sceneLoaderInterface).AsSingle();
+            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
         }
     }
 }

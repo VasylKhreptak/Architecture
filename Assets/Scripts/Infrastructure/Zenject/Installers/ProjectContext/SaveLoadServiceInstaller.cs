@@ -8,8 +8,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
     {
         public override void InstallBindings()
         {
-            ISaveLoadService saveLoadService = Container.Instantiate<SaveLoadService>();
-            Container.BindInstance(saveLoadService).AsSingle();
+            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
         }
     }
 }
