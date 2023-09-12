@@ -17,11 +17,9 @@ namespace Infrastructure.Zenject.Installers.ProjectContext
             saveLoadHandlerService.Add(Container.Resolve<IPersistenceDataService>());
             saveLoadHandlerService.AddLoadHandler(Container.Resolve<IStaticDataService>());
             
-            Container.BindInterfacesAndSelfTo<SaveLoadHandlerService>().AsSingle();
+            Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
             
             Container.BindInstance(saveLoadHandlerServiceInterface).AsSingle();
-
-            saveLoadHandlerService.Load();
         }
     }
 }

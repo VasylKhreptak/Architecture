@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Core;
 using Infrastructure.Services.SaveLoadHandler.Core;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -12,12 +13,16 @@ namespace Infrastructure.Services.SaveLoadHandler
         private readonly List<ISaveHandler> _saveHandlers = new List<ISaveHandler>();
         private readonly List<ILoadHandler> _loadHandlers = new List<ILoadHandler>();
 
+        private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
+
         public void Save()
         {
             foreach (var saveHandler in _saveHandlers)
             {
                 saveHandler.Save();
             }
+
+            Debug.Log("Saved");
         }
 
         public void Load()
@@ -51,11 +56,36 @@ namespace Infrastructure.Services.SaveLoadHandler
         public void Initialize()
         {
             Load();
+            StartObserving();
         }
 
         public void Dispose()
         {
             Save();
+            StopObserving();
+        }
+
+        private void StartObserving()
+        {
+            StopObserving();
+
+            Observable
+                .EveryApplicationFocus()
+                .Subscribe(OnApplicationFocus)
+                .AddTo(_subscriptions);
+        }
+
+        private void StopObserving()
+        {
+            _subscriptions.Clear();
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus == false)
+            {
+                Save();
+            }
         }
     }
 }
