@@ -3,7 +3,7 @@ using Infrastructure.Data.Static;
 
 namespace Infrastructure.Services.StaticData.Core
 {
-    public interface IStaticDataService : IDataLoadHandler
+    public interface IStaticDataService : ILoadHandler
     {
         public GameConfig Config { get; }
         public GameBalance Balance { get; }

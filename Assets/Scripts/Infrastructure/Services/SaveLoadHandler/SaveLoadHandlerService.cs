@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using Infrastructure.Data.Core;
 using Infrastructure.Services.SaveLoadHandler.Core;
+using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Services.SaveLoadHandler
 {
-    public class SaveLoadHandlerService : IDataSaveLoadHandlerService, IInitializable, IDisposable
+    public class SaveLoadHandlerService : ISaveLoadHandlerService, IInitializable, IDisposable
     {
-        private List<IDataSaveHandler> _saveHandlers;
-        private List<IDataLoadHandler> _loadHandlers;
+        private readonly List<ISaveHandler> _saveHandlers = new List<ISaveHandler>();
+        private readonly List<ILoadHandler> _loadHandlers = new List<ILoadHandler>();
 
         public void Save()
         {
@@ -27,37 +28,31 @@ namespace Infrastructure.Services.SaveLoadHandler
             }
         }
 
-        public void Add<T>(T t) where T : IDataSaveHandler, IDataLoadHandler
-        {
-            if (t is IDataSaveHandler dataSaveHandler)
-            {
-                _saveHandlers.Add(dataSaveHandler);
-            }
+        public void AddSaveHandler<T>(T t) where T : ISaveHandler => _saveHandlers.Add(t);
 
-            if (t is IDataLoadHandler dataLoadHandler)
-            {
-                _loadHandlers.Add(dataLoadHandler);
-            }
+        public void RemoveSaveHandler<T>(T t) where T : ISaveHandler => _saveHandlers.Remove(t);
+
+        public void AddLoadHandler<T>(T t) where T : ILoadHandler => _loadHandlers.Add(t);
+
+        public void RemoveLoadHandler<T>(T t) where T : ILoadHandler => _loadHandlers.Remove(t);
+
+        public void Add<T>(T t) where T : ISaveLoadHandler
+        {
+            _saveHandlers.Add(t);
+            _loadHandlers.Add(t);
         }
 
-        public void Remove<T>(T t) where T : IDataSaveHandler, IDataLoadHandler
+        public void Remove<T>(T t) where T : ISaveLoadHandler
         {
-            if (t is IDataSaveHandler dataSaveHandler)
-            {
-                _saveHandlers.Remove(dataSaveHandler);
-            }
-
-            if (t is IDataLoadHandler dataLoadHandler)
-            {
-                _loadHandlers.Remove(dataLoadHandler);
-            }
+            _saveHandlers.Remove(t);
+            _loadHandlers.Remove(t);
         }
-        
+
         public void Initialize()
         {
             Load();
         }
-        
+
         public void Dispose()
         {
             Save();

@@ -3,7 +3,7 @@ using Infrastructure.Data.Persistence;
 
 namespace Infrastructure.Services.PersistenceData.Core
 {
-    public interface IPersistenceDataService : IDataSaveLoadHandler
+    public interface IPersistenceDataService : ISaveLoadHandler
     {
         public PlayerData PlayerData { get; set; }
     }

@@ -21,11 +21,6 @@ namespace Infrastructure.Curtain
 
         #region MonoBehaviour
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         private void OnDestroy()
         {
             KillTween();

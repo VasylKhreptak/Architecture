@@ -19,7 +19,6 @@ namespace Infrastructure.Services.StaticData
         public void Load()
         {
             _gameConfig = Resources.Load<GameConfig>(GameConfigPath);
-            
             _gameBalance = Resources.Load<GameBalance>(GameBalancePath);
         }
     }
