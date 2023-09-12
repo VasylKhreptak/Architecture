@@ -1,8 +1,9 @@
-using Infrastructure.Data;
+using Infrastructure.Data.Core;
+using Infrastructure.Data.Persistence;
 
-namespace Infrastructure.Services.PersistenceProgress.Core
+namespace Infrastructure.Services.PersistenceData.Core
 {
-    public interface IPersistenceDataService
+    public interface IPersistenceDataService : IDataSaveLoadHandler
     {
         public PlayerData PlayerData { get; set; }
     }

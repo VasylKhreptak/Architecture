@@ -1,4 +1,4 @@
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Persistence
 {
     public class PlayerData
     {
