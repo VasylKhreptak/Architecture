@@ -5,12 +5,12 @@ namespace Plugins.Banks.Data.Economy
 {
     public class Banks
     {
-        public readonly Dictionary<BankType, Bank<int>> IntegerBanks;
+        public readonly Dictionary<BankType, IntegerBank> IntegerBanks;
 
         public Banks()
         {
-            IntegerBanks = new Dictionary<BankType, Bank<int>>();
-            IntegerBanks.Add(BankType.Coins, new IntegerBank(BankType.Coins, 0));
+            IntegerBanks = new Dictionary<BankType, IntegerBank>();
+            IntegerBanks.Add(BankType.Coins, new IntegerBank(0));
         }
     }
 }

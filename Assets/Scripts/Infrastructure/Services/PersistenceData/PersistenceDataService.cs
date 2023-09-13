@@ -1,11 +1,8 @@
 using Infrastructure.Data.Persistence;
 using Infrastructure.Services.PersistenceData.Core;
 using Infrastructure.Services.SaveLoad.Core;
-using Newtonsoft.Json;
-using Plugins.Banks.Data.Economy.Core;
 using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace Infrastructure.Services.PersistenceData
 {
@@ -31,6 +28,7 @@ namespace Infrastructure.Services.PersistenceData
         public void Load()
         {
             PlayerData = _saveLoadService.Load(PlayerDataKey, new PlayerData());
+            Debug.Log(PlayerData == null);
         }
     }
 }
