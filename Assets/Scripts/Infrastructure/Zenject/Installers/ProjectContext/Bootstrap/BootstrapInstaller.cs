@@ -37,7 +37,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void BindMonoServices()
         {
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
-            Container.Bind<ILoadingCurtain>().To<LoadingCurtain>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
+            Container.Bind<ILoadingScreen>().To<LoadingScreen>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
         }
 
         private void BindServices()

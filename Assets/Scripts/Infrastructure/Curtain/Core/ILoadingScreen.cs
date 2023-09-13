@@ -2,7 +2,7 @@ using System;
 
 namespace Infrastructure.Curtain.Core
 {
-    public interface ILoadingCurtain
+    public interface ILoadingScreen
     {
         public event Action OnHidden;
 

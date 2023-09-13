@@ -7,8 +7,6 @@ namespace Infrastructure.Services.RuntimeData
 {
     public class RuntimeDataService : IRuntimeDataService
     {
-        private const string PlayerDataKey = "PlayerData";
-
         private ISaveLoadService _saveLoadService;
 
         public PlayerData PlayerData { get; set; }
@@ -21,12 +19,12 @@ namespace Infrastructure.Services.RuntimeData
 
         public void Save()
         {
-            _saveLoadService.Save(PlayerData, PlayerDataKey);
+            _saveLoadService.Save(PlayerData, nameof(PlayerData));
         }
 
         public void Load()
         {
-            PlayerData = _saveLoadService.Load(PlayerDataKey, new PlayerData());
+            PlayerData = _saveLoadService.Load(nameof(PlayerData), new PlayerData());
         }
     }
 }

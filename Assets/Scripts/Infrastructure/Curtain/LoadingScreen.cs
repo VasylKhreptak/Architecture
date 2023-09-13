@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Infrastructure.Curtain
 {
-    public class LoadingCurtain : MonoBehaviour, ILoadingCurtain
+    public class LoadingScreen : MonoBehaviour, ILoadingScreen
     {
         [Header("References")]
         [SerializeField] private RectTransform _rectTransform;

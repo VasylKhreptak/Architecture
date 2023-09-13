@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3019697553437278488}
   - component: {fileID: 4756432211652540303}
   m_Layer: 5
-  m_Name: LoadingCurtain
+  m_Name: LoadingScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

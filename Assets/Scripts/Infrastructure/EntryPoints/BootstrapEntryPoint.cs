@@ -12,18 +12,18 @@ namespace Infrastructure.EntryPoints
     {
         private ISceneLoader _sceneLoader;
         private IStaticDataService _staticDataService;
-        private ILoadingCurtain _loadingCurtain;
+        private ILoadingScreen _loadingScreen;
         private ISaveLoadHandlerService _saveLoadHandlerService;
 
         [Inject]
         private void Constructor(ISceneLoader sceneLoader,
             IStaticDataService staticDataService,
-            ILoadingCurtain loadingCurtain,
+            ILoadingScreen loadingScreen,
             ISaveLoadHandlerService saveLoadHandlerService)
         {
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
-            _loadingCurtain = loadingCurtain;
+            _loadingScreen = loadingScreen;
             _saveLoadHandlerService = saveLoadHandlerService;
         }
 
@@ -45,7 +45,7 @@ namespace Infrastructure.EntryPoints
 
         private void LoadScene()
         {
-            _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, _loadingCurtain.Hide);
+            _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, _loadingScreen.Hide);
         }
 
         private void SetupApplication()
