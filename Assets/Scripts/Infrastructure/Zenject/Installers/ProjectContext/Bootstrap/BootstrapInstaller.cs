@@ -31,6 +31,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             BindMonoServices();
             BindServices();
+            BindSignalBus();
         }
 
         private void BindMonoServices()
@@ -62,6 +63,11 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
 
             Container.BindInstance(saveLoadHandlerServiceInterface).AsSingle();
+        }
+
+        private void BindSignalBus()
+        {
+            SignalBusInstaller.Install(Container);
         }
     }
 }
