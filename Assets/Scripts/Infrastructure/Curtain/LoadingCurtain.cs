@@ -38,6 +38,8 @@ namespace Infrastructure.Curtain
 
         public void Hide()
         {
+            if (gameObject.activeSelf == false) return;
+
             KillTween();
 
             _moveTween = _rectTransform
