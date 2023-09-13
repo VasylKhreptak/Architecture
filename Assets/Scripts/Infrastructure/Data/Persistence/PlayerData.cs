@@ -4,6 +4,6 @@ namespace Infrastructure.Data.Persistence
 {
     public class PlayerData
     {
-        public Banks Resources;
+        public Banks Resources = new Banks();
     }
 }
