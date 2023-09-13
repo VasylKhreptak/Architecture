@@ -13,7 +13,7 @@ namespace Extensions
 
             if (probability == 0) return false;
 
-            return Random.Range(0f, 1f) <= probability;
+            return Random.value <= probability;
         }
 
         public static void Probability(float probability, Action onTrue, Action onFalse = null)
