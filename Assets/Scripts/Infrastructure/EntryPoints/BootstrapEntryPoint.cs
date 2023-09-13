@@ -34,10 +34,34 @@ namespace Infrastructure.EntryPoints
 
         public void Enter()
         {
+            SetupApplication();
+
+            LoadScene();
+        }
+
+        private void LoadScene()
+        {
             _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, () =>
             {
                 _loadingCurtain.Hide();
             });
+        }
+
+        private void SetupApplication()
+        {
+            RemoveFPSConstraint();
+            DisableScreenSleep();
+        }
+
+        private void RemoveFPSConstraint()
+        {
+            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
+            QualitySettings.vSyncCount = 0;
+        }
+
+        private void DisableScreenSleep()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
     }
 }
