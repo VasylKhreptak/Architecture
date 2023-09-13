@@ -4,7 +4,7 @@ using Infrastructure.Curtain;
 using Infrastructure.Curtain.Core;
 using Infrastructure.SceneManagement;
 using Infrastructure.SceneManagement.Core;
-using Infrastructure.Services.FPSCounter;
+using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.ID.Core;
 using Infrastructure.Services.Log;

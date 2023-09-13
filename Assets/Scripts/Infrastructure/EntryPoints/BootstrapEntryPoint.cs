@@ -1,7 +1,7 @@
 using Infrastructure.Curtain.Core;
 using Infrastructure.EntryPoints.Core;
 using Infrastructure.SceneManagement.Core;
-using Infrastructure.Services.FPSCounter.Core;
+using Infrastructure.Services.Framerate.Core;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
 using Zenject;

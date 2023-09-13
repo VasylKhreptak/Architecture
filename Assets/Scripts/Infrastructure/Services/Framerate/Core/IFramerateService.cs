@@ -2,7 +2,7 @@
 using UniRx;
 using Zenject;
 
-namespace Infrastructure.Services.FPSCounter.Core
+namespace Infrastructure.Services.Framerate.Core
 {
     public interface IFramerateService : IInitializable, IDisposable
     {

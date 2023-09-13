@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Infrastructure.Services.FPSCounter.Core;
+using Infrastructure.Services.Framerate.Core;
 using UniRx;
 using UnityEngine;
 
-namespace Infrastructure.Services.FPSCounter
+namespace Infrastructure.Services.Framerate
 {
     public class FramerateService : IFramerateService
     {
