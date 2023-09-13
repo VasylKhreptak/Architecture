@@ -1,11 +1,11 @@
 using Infrastructure.Data.Persistence;
-using Infrastructure.Services.PersistenceData.Core;
+using Infrastructure.Services.RuntimeData.Core;
 using Infrastructure.Services.SaveLoad.Core;
 using Zenject;
 
-namespace Infrastructure.Services.PersistenceData
+namespace Infrastructure.Services.RuntimeData
 {
-    public class PersistenceDataService : IPersistenceDataService
+    public class RuntimeDataService : IRuntimeDataService
     {
         private const string PlayerDataKey = "PlayerData";
 

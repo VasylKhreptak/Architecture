@@ -1,9 +1,9 @@
 using Infrastructure.Data.Core;
 using Infrastructure.Data.Persistence;
 
-namespace Infrastructure.Services.PersistenceData.Core
+namespace Infrastructure.Services.RuntimeData.Core
 {
-    public interface IPersistenceDataService : ISaveLoadHandler
+    public interface IRuntimeDataService : ISaveLoadHandler
     {
         public PlayerData PlayerData { get; set; }
     }
