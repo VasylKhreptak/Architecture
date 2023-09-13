@@ -83,6 +83,5 @@ namespace Extensions
             float rmsd = Mathf.Sqrt(sumSquaredDeviation / count);
             return rmsd;
         }
-
     }
 }
