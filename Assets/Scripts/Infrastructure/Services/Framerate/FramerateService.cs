@@ -23,6 +23,7 @@ namespace Infrastructure.Services.Framerate
         public void Initialize()
         {
             DisableVsync();
+            SetTargetFramerate((int)Screen.currentResolution.refreshRateRatio.value);
             StartCapturingFrames();
             StartUpdatingAverageFramerate();
         }
