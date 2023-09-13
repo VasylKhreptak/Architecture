@@ -4,6 +4,7 @@ using Infrastructure.Curtain;
 using Infrastructure.Curtain.Core;
 using Infrastructure.SceneManagement;
 using Infrastructure.SceneManagement.Core;
+using Infrastructure.Services.FPSCounter;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.ID.Core;
 using Infrastructure.Services.Log;
@@ -13,7 +14,6 @@ using Infrastructure.Services.PersistenceData.Core;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.SaveLoad.Core;
 using Infrastructure.Services.SaveLoadHandler;
-using Infrastructure.Services.SaveLoadHandler.Core;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
@@ -48,21 +48,18 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IPersistenceDataService>().To<PersistenceDataService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
-
+            Container.BindInterfacesAndSelfTo<FramerateService>().AsSingle();
             BindSaveLoadHandlerService();
         }
 
         private void BindSaveLoadHandlerService()
         {
             SaveLoadHandlerService saveLoadHandlerService = Container.Instantiate<SaveLoadHandlerService>();
-            ISaveLoadHandlerService saveLoadHandlerServiceInterface = saveLoadHandlerService;
 
             saveLoadHandlerService.Add(Container.Resolve<IPersistenceDataService>());
             saveLoadHandlerService.AddLoadHandler(Container.Resolve<IStaticDataService>());
 
-            Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
-
-            Container.BindInstance(saveLoadHandlerServiceInterface).AsSingle();
+            Container.BindInterfacesAndSelfTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
         }
 
         private void BindSignalBus()

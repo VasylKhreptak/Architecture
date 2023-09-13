@@ -1,6 +1,7 @@
 using Infrastructure.Curtain.Core;
 using Infrastructure.EntryPoints.Core;
 using Infrastructure.SceneManagement.Core;
+using Infrastructure.Services.FPSCounter.Core;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
 using Zenject;
@@ -12,15 +13,18 @@ namespace Infrastructure.EntryPoints
         private ISceneLoader _sceneLoader;
         private IStaticDataService _staticDataService;
         private ILoadingCurtain _loadingCurtain;
-
+        private IFramerateService _framerateService;
+        
         [Inject]
         private void Constructor(ISceneLoader sceneLoader,
             IStaticDataService staticDataService,
-            ILoadingCurtain loadingCurtain)
+            ILoadingCurtain loadingCurtain,
+            IFramerateService framerateService)
         {
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
             _loadingCurtain = loadingCurtain;
+            _framerateService = framerateService;
         }
 
         #region MonoBehaviour
@@ -41,10 +45,7 @@ namespace Infrastructure.EntryPoints
 
         private void LoadScene()
         {
-            _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, () =>
-            {
-                _loadingCurtain.Hide();
-            });
+            _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, _loadingCurtain.Hide);
         }
 
         private void SetupApplication()
@@ -55,8 +56,7 @@ namespace Infrastructure.EntryPoints
 
         private void RemoveFPSConstraint()
         {
-            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
-            QualitySettings.vSyncCount = 0;
+            _framerateService.SetTargetFramerate((int)Screen.currentResolution.refreshRateRatio.value);
         }
 
         private void DisableScreenSleep()
