@@ -52,7 +52,6 @@ namespace Infrastructure.Services.SaveLoadHandler
 
         public void Initialize()
         {
-            Load();
             StartObserving();
         }
 

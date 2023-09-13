@@ -1,6 +1,7 @@
 using Infrastructure.Curtain.Core;
 using Infrastructure.EntryPoints.Core;
 using Infrastructure.SceneManagement.Core;
+using Infrastructure.Services.SaveLoadHandler.Core;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
 using Zenject;
@@ -12,15 +13,18 @@ namespace Infrastructure.EntryPoints
         private ISceneLoader _sceneLoader;
         private IStaticDataService _staticDataService;
         private ILoadingCurtain _loadingCurtain;
+        private ISaveLoadHandlerService _saveLoadHandlerService;
 
         [Inject]
         private void Constructor(ISceneLoader sceneLoader,
             IStaticDataService staticDataService,
-            ILoadingCurtain loadingCurtain)
+            ILoadingCurtain loadingCurtain,
+            ISaveLoadHandlerService saveLoadHandlerService)
         {
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
             _loadingCurtain = loadingCurtain;
+            _saveLoadHandlerService = saveLoadHandlerService;
         }
 
         #region MonoBehaviour
@@ -35,7 +39,7 @@ namespace Infrastructure.EntryPoints
         public void Enter()
         {
             SetupApplication();
-
+            LoadData();
             LoadScene();
         }
 
@@ -52,6 +56,11 @@ namespace Infrastructure.EntryPoints
         private void DisableScreenSleep()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+
+        private void LoadData()
+        {
+            _saveLoadHandlerService.Load();
         }
     }
 }
