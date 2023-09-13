@@ -10,7 +10,6 @@ namespace Plugins.Banks.Data.Economy
         public Banks()
         {
             IntegerBanks = new Dictionary<BankType, IntegerBank>();
-            IntegerBanks.Add(BankType.Coins, new IntegerBank(0));
         }
     }
 }

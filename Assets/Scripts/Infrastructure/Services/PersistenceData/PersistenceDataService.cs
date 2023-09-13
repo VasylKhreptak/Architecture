@@ -1,7 +1,6 @@
 using Infrastructure.Data.Persistence;
 using Infrastructure.Services.PersistenceData.Core;
 using Infrastructure.Services.SaveLoad.Core;
-using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Services.PersistenceData
@@ -28,7 +27,6 @@ namespace Infrastructure.Services.PersistenceData
         public void Load()
         {
             PlayerData = _saveLoadService.Load(PlayerDataKey, new PlayerData());
-            Debug.Log(PlayerData == null);
         }
     }
 }
