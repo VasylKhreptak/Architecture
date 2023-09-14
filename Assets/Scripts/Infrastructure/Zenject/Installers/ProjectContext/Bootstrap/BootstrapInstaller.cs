@@ -1,4 +1,5 @@
-﻿using Infrastructure.Coroutines.Runner;
+﻿using DebuggerOptions;
+using Infrastructure.Coroutines.Runner;
 using Infrastructure.Coroutines.Runner.Core;
 using Infrastructure.Curtain;
 using Infrastructure.Curtain.Core;
@@ -30,8 +31,10 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         public override void InstallBindings()
         {
             BindMonoServices();
+            BindSceneLoader();
             BindServices();
             BindSignalBus();
+            InitializeDebugger();
         }
 
         private void BindMonoServices()
@@ -44,12 +47,11 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             Container.Bind<IIDService>().To<IDService>().AsSingle();
             Container.Bind<ILogService>().To<LogService>().AsSingle();
-            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<IRuntimeDataService>().To<RuntimeDataService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.BindInterfacesAndSelfTo<FramerateService>().AsSingle();
-            
+
             BindSaveLoadHandlerService();
         }
 
@@ -66,6 +68,17 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void BindSignalBus()
         {
             SignalBusInstaller.Install(Container);
+        }
+
+        private void BindSceneLoader()
+        {
+            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+        }
+
+        private void InitializeDebugger()
+        {
+            SRDebug.Init();
+            SRDebug.Instance.AddOptionContainer(Container.Instantiate<SROptionsContainer>());
         }
     }
 }
