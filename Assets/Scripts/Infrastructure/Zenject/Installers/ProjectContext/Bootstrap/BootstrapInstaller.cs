@@ -33,7 +33,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             BindMonoServices();
             BindSceneLoader();
             BindServices();
-            BindSignalBus();
             InitializeDebugger();
         }
 
@@ -63,11 +62,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             saveLoadHandlerService.AddLoadHandler(Container.Resolve<IStaticDataService>());
 
             Container.BindInterfacesAndSelfTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
-        }
-
-        private void BindSignalBus()
-        {
-            SignalBusInstaller.Install(Container);
         }
 
         private void BindSceneLoader()
