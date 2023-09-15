@@ -1,6 +1,7 @@
 using Infrastructure.Curtain.Core;
 using Infrastructure.EntryPoints.Core;
 using Infrastructure.SceneManagement.Core;
+using Infrastructure.Services.RuntimeData.Core;
 using Infrastructure.Services.SaveLoadHandler.Core;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
@@ -14,17 +15,20 @@ namespace Infrastructure.EntryPoints
         private IStaticDataService _staticDataService;
         private ILoadingScreen _loadingScreen;
         private ISaveLoadHandlerService _saveLoadHandlerService;
+        private IRuntimeDataService _runtimeDataService;
 
         [Inject]
         private void Constructor(ISceneLoader sceneLoader,
             IStaticDataService staticDataService,
             ILoadingScreen loadingScreen,
-            ISaveLoadHandlerService saveLoadHandlerService)
+            ISaveLoadHandlerService saveLoadHandlerService,
+            IRuntimeDataService runtimeDataService)
         {
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
             _loadingScreen = loadingScreen;
             _saveLoadHandlerService = saveLoadHandlerService;
+            _runtimeDataService = runtimeDataService;
         }
 
         #region MonoBehaviour
@@ -38,19 +42,15 @@ namespace Infrastructure.EntryPoints
 
         public void Enter()
         {
-            SetupApplication();
+            DisableScreenSleep();
             LoadData();
+            UpdateAnalyticsData();
             LoadScene();
         }
 
         private void LoadScene()
         {
             _sceneLoader.LoadAsync(_staticDataService.Config.MainScene, _loadingScreen.Hide);
-        }
-
-        private void SetupApplication()
-        {
-            DisableScreenSleep();
         }
 
         private void DisableScreenSleep()
@@ -61,6 +61,11 @@ namespace Infrastructure.EntryPoints
         private void LoadData()
         {
             _saveLoadHandlerService.Load();
+        }
+
+        private void UpdateAnalyticsData()
+        {
+            _runtimeDataService.RuntimeData.AnalyticsData.SessionsCount++;
         }
     }
 }
