@@ -44,7 +44,7 @@ namespace Infrastructure.EntryPoints
         {
             DisableScreenSleep();
             LoadData();
-            UpdateAnalyticsData();
+            UpdateAnalyticSessionsCount();
             LoadScene();
         }
 
@@ -63,7 +63,7 @@ namespace Infrastructure.EntryPoints
             _saveLoadHandlerService.Load();
         }
 
-        private void UpdateAnalyticsData()
+        private void UpdateAnalyticSessionsCount()
         {
             _runtimeDataService.RuntimeData.AnalyticsData.SessionsCount++;
         }
