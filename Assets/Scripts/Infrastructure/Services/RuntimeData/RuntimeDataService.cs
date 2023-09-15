@@ -1,4 +1,3 @@
-using Infrastructure.Data.Persistence;
 using Infrastructure.Services.RuntimeData.Core;
 using Infrastructure.Services.SaveLoad.Core;
 using Zenject;
@@ -9,7 +8,7 @@ namespace Infrastructure.Services.RuntimeData
     {
         private ISaveLoadService _saveLoadService;
 
-        public PlayerData PlayerData { get; set; }
+        public Data.Runtime.RuntimeData RuntimeData { get; set; }
 
         [Inject]
         private void Constructor(ISaveLoadService saveLoadService)
@@ -19,12 +18,12 @@ namespace Infrastructure.Services.RuntimeData
 
         public void Save()
         {
-            _saveLoadService.Save(PlayerData, nameof(PlayerData));
+            _saveLoadService.Save(RuntimeData, nameof(Data.Runtime.RuntimeData));
         }
 
         public void Load()
         {
-            PlayerData = _saveLoadService.Load(nameof(PlayerData), new PlayerData());
+            RuntimeData = _saveLoadService.Load(nameof(RuntimeData), new Data.Runtime.RuntimeData());
         }
     }
 }
