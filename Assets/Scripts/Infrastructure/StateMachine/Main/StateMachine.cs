@@ -9,10 +9,10 @@ namespace Infrastructure.StateMachine.Main
 {
     public class StateMachine<TBaseState> : IStateMachine<TBaseState>, IUpdatable, IDisposable
     {
-        public Type ActiveStateType => _currentStateInfo?.StateType;
-
         private IStateInfo _currentStateInfo;
         private IStateInfo _lastStateInfo;
+
+        public Type ActiveStateType => _currentStateInfo?.StateType;
 
         private readonly IStateFactory _stateFactory;
 
