@@ -11,10 +11,10 @@ namespace Infrastructure.StateMachine.Main
     {
         public Type ActiveStateType => _currentStateInfo?.StateType;
 
-        private readonly IStateFactory _stateFactory;
-
         private IStateInfo _currentStateInfo;
         private IStateInfo _lastStateInfo;
+
+        private readonly IStateFactory _stateFactory;
 
         protected StateMachine(IStateFactory stateFactory)
         {
