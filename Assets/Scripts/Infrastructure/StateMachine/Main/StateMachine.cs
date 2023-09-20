@@ -10,7 +10,7 @@ namespace Infrastructure.StateMachine.Main
     public class StateMachine<TBaseState> : IStateMachine<TBaseState>, IUpdatable, IDisposable
     {
         public Type ActiveStateType => _currentStateInfo?.StateType;
-        
+
         private readonly IStateFactory _stateFactory;
 
         private IStateInfo _currentStateInfo;
@@ -67,17 +67,11 @@ namespace Infrastructure.StateMachine.Main
             _lastStateInfo = null;
         }
 
-        protected virtual void StateChanged(Type oldStateType, Type newStateType)
-        {
-        }
-
         private void ChangeState<TState>(out TState state) where TState : class, IBaseState
         {
             _currentStateInfo?.Exit();
 
             state = _stateFactory.GetState<TState>();
-
-            StateChanged(ActiveStateType, typeof(TState));
         }
     }
 }
