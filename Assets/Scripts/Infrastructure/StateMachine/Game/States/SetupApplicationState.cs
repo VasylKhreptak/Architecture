@@ -16,8 +16,13 @@ namespace Infrastructure.StateMachine.Game.States
 
         public void Enter(string payload)
         {
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            DisableSleepTimeout();
             _gameStateMachine.Enter<LoadDataState, string>(payload);
+        }
+
+        private void DisableSleepTimeout()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
     }
 }
