@@ -17,12 +17,17 @@ using Infrastructure.Services.SaveLoad.Core;
 using Infrastructure.Services.SaveLoadHandler;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Core;
+using Infrastructure.StateMachine.Game;
+using Infrastructure.StateMachine.Game.Factory;
+using Infrastructure.StateMachine.Game.States;
+using Infrastructure.StateMachine.Main.Core;
+using Infrastructure.StateMachine.Main.States.Core;
 using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 {
-    public class BootstrapInstaller : MonoInstaller
+    public class BootstrapInstaller : MonoInstaller, IInitializable
     {
         [Header("References")]
         [SerializeField] private GameObject _coroutineRunnerPrefab;
@@ -33,8 +38,12 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             BindMonoServices();
             BindSceneLoader();
             BindServices();
+            BindGameStateMachine();
             InitializeDebugger();
+            MakeInitializable();
         }
+
+        public void Initialize() => BootstrapGame();
 
         private void BindMonoServices()
         {
@@ -46,7 +55,11 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             Container.Bind<IIDService>().To<IDService>().AsSingle();
             Container.Bind<ILogService>().To<LogService>().AsSingle();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
+
+            IStaticDataService staticDataService = Container.Instantiate<StaticDataService>();
+            Container.Bind<IStaticDataService>().FromInstance(staticDataService).AsSingle();
+            staticDataService.Load();
+
             Container.Bind<IRuntimeDataService>().To<RuntimeDataService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.BindInterfacesAndSelfTo<FramerateService>().AsSingle();
@@ -59,7 +72,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             SaveLoadHandlerService saveLoadHandlerService = Container.Instantiate<SaveLoadHandlerService>();
 
             saveLoadHandlerService.Add(Container.Resolve<IRuntimeDataService>());
-            saveLoadHandlerService.AddLoadHandler(Container.Resolve<IStaticDataService>());
 
             Container.BindInterfacesAndSelfTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
         }
@@ -69,10 +81,34 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
         }
 
+        private void BindGameStateMachine()
+        {
+            Container.Bind<GameStateFactory>().AsSingle();
+            Container.BindInterfacesTo<GameStateMachine>().AsSingle();
+            BindGameStates();
+        }
+
+        private void BindGameStates()
+        {
+            Container.Bind<BootstrapState>().AsSingle();
+            Container.Bind<SetupApplicationState>().AsSingle();
+            Container.Bind<LoadDataState>().AsSingle();
+            Container.Bind<BootstrapAnalyticsState>().AsSingle();
+            Container.Bind<LoadLevelState>().AsSingle();
+            Container.Bind<GameLoopState>().AsSingle();
+        }
+
+        private void BootstrapGame() => Container.Resolve<IStateMachine<IGameState>>().Enter<BootstrapState>();
+
         private void InitializeDebugger()
         {
             SRDebug.Init();
             SRDebug.Instance.AddOptionContainer(Container.Instantiate<SROptionsContainer>());
+        }
+
+        private void MakeInitializable()
+        {
+            Container.Bind<IInitializable>().FromInstance(this).AsSingle();
         }
     }
 }
