@@ -37,7 +37,7 @@ namespace Infrastructure.StateMachine.Game.Factory
             }
 
             state = _container.Resolve<TState>();
-            _cachedStatesMap.TryAdd(typeof(TState), state);
+            _cachedStatesMap.Add(typeof(TState), state);
             return state;
         }
     }
