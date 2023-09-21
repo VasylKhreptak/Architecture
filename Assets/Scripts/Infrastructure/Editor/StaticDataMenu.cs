@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Infrastructure.Editor
 {
-    public static class StaticDataMenuTool
+    public static class StaticDataMenu
     {
         [MenuItem("Game/⚙ Config %F1")]
         public static void OpenGameConfig() => SelectObject("Assets/Resources/StaticData/GameConfig.asset");
