@@ -27,7 +27,11 @@ namespace Infrastructure.StateMachine.Game.States
         public void Enter()
         {
             _loadingScreen.Show();
-            _sceneLoader.Load(_staticDataService.Config.BootstrapScene);
+            _sceneLoader.LoadAsync(_staticDataService.Config.BootstrapScene, OnLoadedScene);
+        }
+
+        private void OnLoadedScene()
+        {
             _stateMachine.Enter<SetupApplicationState, string>(_staticDataService.Config.MainScene);
         }
     }
