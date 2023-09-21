@@ -8,8 +8,8 @@ namespace Infrastructure.StateMachine.Main.States.Factory
 {
     public abstract class StateFactory : IStateFactory, IFactory<Type, IBaseState>
     {
-        private readonly Dictionary<Type, Func<IBaseState>> _statesMap;
         protected readonly DiContainer _container;
+        private readonly Dictionary<Type, Func<IBaseState>> _statesMap;
 
         protected StateFactory(DiContainer container)
         {
