@@ -9,11 +9,11 @@ namespace Infrastructure.StateMachine.Game.Factory
 {
     public class GameStateFactory : StateFactory
     {
-        private readonly Dictionary<Type, IBaseState> _cachedStates;
+        private readonly Dictionary<Type, IBaseState> _cachedStatesMap;
 
         public GameStateFactory(DiContainer container) : base(container)
         {
-            _cachedStates = new Dictionary<Type, IBaseState>();
+            _cachedStatesMap = new Dictionary<Type, IBaseState>();
         }
 
         protected override Dictionary<Type, Func<IBaseState>> BuildStatesRegister()
@@ -31,13 +31,13 @@ namespace Infrastructure.StateMachine.Game.Factory
 
         private IBaseState Get<TState>() where TState : IBaseState
         {
-            if (_cachedStates.TryGetValue(typeof(TState), out IBaseState state))
+            if (_cachedStatesMap.TryGetValue(typeof(TState), out IBaseState state))
             {
                 return state;
             }
 
             state = _container.Resolve<TState>();
-            _cachedStates.TryAdd(typeof(TState), state);
+            _cachedStatesMap.TryAdd(typeof(TState), state);
             return state;
         }
     }
