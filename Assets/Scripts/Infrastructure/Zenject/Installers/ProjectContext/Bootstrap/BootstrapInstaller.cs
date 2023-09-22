@@ -15,6 +15,7 @@ using Infrastructure.Services.RuntimeData.Core;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.SaveLoad.Core;
 using Infrastructure.Services.SaveLoadHandler;
+using Infrastructure.Services.Screen;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Core;
 using Infrastructure.StateMachine.Game;
@@ -63,6 +64,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<IRuntimeDataService>().To<RuntimeDataService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.BindInterfacesAndSelfTo<FramerateService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ScreenService>().AsSingle();
 
             BindSaveLoadHandlerService();
         }
