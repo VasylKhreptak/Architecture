@@ -4,66 +4,69 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class SafeAreaUpdater : MonoBehaviour
+namespace Graphics.Screen.Utility
 {
-    [Header("References")]
-    [SerializeField] private RectTransform _rectTransform;
-
-    private IDisposable _subscription;
-
-    private IScreenService _screeService;
-
-    [Inject]
-    private void Constructor(IScreenService screenService)
+    public class SafeAreaUpdater : MonoBehaviour
     {
-        _screeService = screenService;
-    }
+        [Header("References")]
+        [SerializeField] private RectTransform _rectTransform;
 
-    #region MonoBehaiour
+        private IDisposable _subscription;
 
-    private void OnValidate()
-    {
-        _rectTransform ??= GetComponent<RectTransform>();
-    }
+        private IScreenService _screeService;
 
-    private void OnEnable()
-    {
-        StartObserving();
-    }
+        [Inject]
+        private void Constructor(IScreenService screenService)
+        {
+            _screeService = screenService;
+        }
 
-    private void OnDisable()
-    {
-        StopObserving();
-    }
+        #region MonoBehaiour
 
-    #endregion
+        private void OnValidate()
+        {
+            _rectTransform ??= GetComponent<RectTransform>();
+        }
 
-    private void StartObserving()
-    {
-        StopObserving();
-        _subscription = Observable
-            .CombineLatest(_screeService.ScreenOrientation, _screeService.ScreenResolution, (orientation, resolution) => (orientation, resolution))
-            .DoOnSubscribe(UpdateArea)
-            .Subscribe(tuple => UpdateArea());
-    }
+        private void OnEnable()
+        {
+            StartObserving();
+        }
 
-    private void StopObserving()
-    {
-        _subscription?.Dispose();
-    }
+        private void OnDisable()
+        {
+            StopObserving();
+        }
 
-    private void UpdateArea()
-    {
-        Rect safeArea = Screen.safeArea;
-        Vector2 anchorMin = safeArea.position;
-        Vector2 anchorMax = safeArea.position + safeArea.size;
+        #endregion
 
-        anchorMin.x /= Screen.width;
-        anchorMin.y /= Screen.height;
-        anchorMax.x /= Screen.width;
-        anchorMax.y /= Screen.height;
+        private void StartObserving()
+        {
+            StopObserving();
+            _subscription = Observable
+                .CombineLatest(_screeService.ScreenOrientation, _screeService.ScreenResolution, (orientation, resolution) => (orientation, resolution))
+                .DoOnSubscribe(UpdateArea)
+                .Subscribe(tuple => UpdateArea());
+        }
 
-        _rectTransform.anchorMin = anchorMin;
-        _rectTransform.anchorMax = anchorMax;
+        private void StopObserving()
+        {
+            _subscription?.Dispose();
+        }
+
+        private void UpdateArea()
+        {
+            Rect safeArea = UnityEngine.Screen.safeArea;
+            Vector2 anchorMin = safeArea.position;
+            Vector2 anchorMax = safeArea.position + safeArea.size;
+
+            anchorMin.x /= UnityEngine.Screen.width;
+            anchorMin.y /= UnityEngine.Screen.height;
+            anchorMax.x /= UnityEngine.Screen.width;
+            anchorMax.y /= UnityEngine.Screen.height;
+
+            _rectTransform.anchorMin = anchorMin;
+            _rectTransform.anchorMax = anchorMax;
+        }
     }
 }
