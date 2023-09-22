@@ -63,8 +63,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
             Container.Bind<IRuntimeDataService>().To<RuntimeDataService>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<FramerateService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ScreenService>().AsSingle();
+            Container.BindInterfacesTo<FramerateService>().AsSingle();
+            Container.BindInterfacesTo<ScreenService>().AsSingle();
 
             BindSaveLoadHandlerService();
         }
@@ -75,7 +75,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
             saveLoadHandlerService.Add(Container.Resolve<IRuntimeDataService>());
 
-            Container.BindInterfacesAndSelfTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
+            Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
         }
 
         private void BindSceneLoader()
