@@ -29,7 +29,11 @@ namespace Infrastructure.Services.SaveLoad
                 return defaultValue;
             }
 
-            return JsonConvert.DeserializeObject<T>(jsonData);
+            T t = JsonConvert.DeserializeObject<T>(jsonData);
+
+            if (t == null) return defaultValue;
+
+            return t;
         }
 
         public bool HasKey(string key)
