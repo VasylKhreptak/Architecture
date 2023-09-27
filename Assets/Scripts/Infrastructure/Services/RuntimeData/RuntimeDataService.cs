@@ -25,8 +25,6 @@ namespace Infrastructure.Services.RuntimeData
         public void Load()
         {
             RuntimeData = _saveLoadService.Load(nameof(RuntimeData), new Data.Runtime.RuntimeData());
-
-            Debug.Log(RuntimeData == null);
         }
     }
 }
