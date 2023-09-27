@@ -1,5 +1,6 @@
 using Infrastructure.Services.RuntimeData.Core;
 using Infrastructure.Services.SaveLoad.Core;
+using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Services.RuntimeData
@@ -24,6 +25,8 @@ namespace Infrastructure.Services.RuntimeData
         public void Load()
         {
             RuntimeData = _saveLoadService.Load(nameof(RuntimeData), new Data.Runtime.RuntimeData());
+
+            Debug.Log(RuntimeData == null);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Infrastructure.Services.SaveLoad.Core;
+﻿using System;
+using System.IO;
+using Infrastructure.Services.SaveLoad.Core;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -10,35 +12,41 @@ namespace Infrastructure.Services.SaveLoad
         {
             string jsonData = JsonConvert.SerializeObject(data);
 
-            PlayerPrefs.SetString(key, jsonData);
+            string path = Path.Combine(Application.persistentDataPath, key);
+
+            File.WriteAllText(path, jsonData);
         }
 
-        public T Load<T>(string key)
+        public T Load<T>(string key, T defaultValue = default)
         {
-            string jsonData = PlayerPrefs.GetString(key);
+            string path = Path.Combine(Application.persistentDataPath, key);
 
-            return JsonConvert.DeserializeObject<T>(jsonData);
-        }
-
-        public T Load<T>(string key, T defaultValue)
-        {
-            string jsonData = PlayerPrefs.GetString(key);
-
-            if (string.IsNullOrEmpty(jsonData))
+            if (File.Exists(path))
             {
-                return defaultValue;
+                string jsonData = File.ReadAllText(path);
+
+                try
+                {
+                    T instance = JsonConvert.DeserializeObject<T>(jsonData);
+
+                    if (instance == null) return defaultValue;
+
+                    return instance;
+                }
+                catch (Exception)
+                {
+                    return defaultValue;
+                }
             }
 
-            T t = JsonConvert.DeserializeObject<T>(jsonData);
-
-            if (t == null) return defaultValue;
-
-            return t;
+            return defaultValue;
         }
 
         public bool HasKey(string key)
         {
-            return PlayerPrefs.HasKey(key);
+            string path = Path.Combine(Application.persistentDataPath, key);
+
+            return File.Exists(path);
         }
     }
 }
