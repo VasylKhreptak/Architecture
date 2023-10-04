@@ -2,7 +2,7 @@
 {
     public interface IWindow
     {
-        public bool Enabled { get; }
+        public bool IsActive { get; }
 
         public void Show();
 
