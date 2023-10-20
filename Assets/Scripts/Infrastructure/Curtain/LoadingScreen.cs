@@ -38,7 +38,8 @@ namespace Infrastructure.Curtain
 
         public void Hide()
         {
-            if (gameObject.activeSelf == false) return;
+            if (gameObject.activeSelf == false)
+                return;
 
             KillTween();
 
