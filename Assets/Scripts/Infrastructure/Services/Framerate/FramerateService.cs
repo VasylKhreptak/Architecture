@@ -20,7 +20,7 @@ namespace Infrastructure.Services.Framerate
         private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
 
         public IReadOnlyReactiveProperty<float> AverageFramerate => _averageFramerate;
-        
+
         public void Initialize()
         {
             DisableVsync();
