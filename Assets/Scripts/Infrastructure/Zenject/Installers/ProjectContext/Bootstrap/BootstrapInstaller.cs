@@ -78,10 +78,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
         }
 
-        private void BindSceneLoader()
-        {
-            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
-        }
+        private void BindSceneLoader() => Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
 
         private void BindGameStateMachine()
         {
@@ -108,9 +105,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             SRDebug.Instance.AddOptionContainer(Container.Instantiate<SROptionsContainer>());
         }
 
-        private void MakeInitializable()
-        {
-            Container.Bind<IInitializable>().FromInstance(this).AsSingle();
-        }
+        private void MakeInitializable() => Container.Bind<IInitializable>().FromInstance(this).AsSingle();
     }
 }
