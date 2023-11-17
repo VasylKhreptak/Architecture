@@ -4,12 +4,12 @@ namespace Infrastructure.StateMachine.Main.States.Info.Core
 {
     public interface IStateInfo
     {
-        Type StateType { get; }
+        public Type StateType { get; }
 
-        void Enter();
+        public void Enter();
 
-        void Update();
+        public void Tick();
 
-        void Exit();
+        public void Exit();
     }
 }

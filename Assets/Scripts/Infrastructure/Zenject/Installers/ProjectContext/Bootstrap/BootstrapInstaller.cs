@@ -85,9 +85,9 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         private void BindGameStateMachine()
         {
+            BindGameStates();
             Container.Bind<GameStateFactory>().AsSingle();
             Container.BindInterfacesTo<GameStateMachine>().AsSingle();
-            BindGameStates();
         }
 
         private void BindGameStates()

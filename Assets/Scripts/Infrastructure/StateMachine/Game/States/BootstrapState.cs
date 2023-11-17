@@ -14,9 +14,7 @@ namespace Infrastructure.StateMachine.Game.States
         private readonly IStaticDataService _staticDataService;
         private readonly ILoadingScreen _loadingScreen;
 
-        public BootstrapState(IStateMachine<IGameState> stateMachine,
-            ISceneLoader sceneLoader,
-            IStaticDataService staticDataService,
+        public BootstrapState(IStateMachine<IGameState> stateMachine, ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ILoadingScreen loadingScreen)
         {
             _stateMachine = stateMachine;
@@ -31,9 +29,6 @@ namespace Infrastructure.StateMachine.Game.States
             _sceneLoader.LoadAsync(_staticDataService.Config.BootstrapScene, OnLoadedScene);
         }
 
-        private void OnLoadedScene()
-        {
-            _stateMachine.Enter<SetupApplicationState, string>(_staticDataService.Config.MainScene);
-        }
+        private void OnLoadedScene() => _stateMachine.Enter<SetupApplicationState, string>(_staticDataService.Config.MainScene);
     }
 }

@@ -8,16 +8,17 @@ namespace Infrastructure.StateMachine.Main.States.Factory
 {
     public abstract class StateFactory : IStateFactory, IFactory<Type, IBaseState>
     {
-        protected readonly DiContainer _container;
         private readonly Dictionary<Type, Func<IBaseState>> _statesMap;
+
+        protected readonly DiContainer _container;
 
         protected StateFactory(DiContainer container)
         {
             _container = container;
-            _statesMap = BuildStatesRegister();
+            _statesMap = BuildStatesMap();
         }
 
-        protected abstract Dictionary<Type, Func<IBaseState>> BuildStatesRegister();
+        protected abstract Dictionary<Type, Func<IBaseState>> BuildStatesMap();
 
         public T GetState<T>() where T : class, IBaseState => Create(typeof(T)) as T;
 
