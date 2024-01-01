@@ -22,6 +22,8 @@ using Infrastructure.StateMachine.Game.Factory;
 using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
+using Infrastructure.Transition;
+using Infrastructure.Transition.Core;
 using UnityEngine;
 using Zenject;
 
@@ -32,6 +34,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         [Header("References")]
         [SerializeField] private GameObject _coroutineRunnerPrefab;
         [SerializeField] private GameObject _loadingCurtainPrefab;
+        [SerializeField] private GameObject _transitionScreenPrefab;
 
         public override void InstallBindings()
         {
@@ -48,10 +51,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void BindMonoServices()
         {
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
-            Container.Bind<ILoadingScreen>()
-                .To<LoadingScreen.LoadingScreen>()
-                .FromComponentInNewPrefab(_loadingCurtainPrefab)
-                .AsSingle();
+            Container.Bind<ILoadingScreen>().To<LoadingScreen.LoadingScreen>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
+            Container.Bind<ITransitionScreen>().To<TransitionScreen>().FromComponentInNewPrefab(_transitionScreenPrefab).AsSingle();
         }
 
         private void BindServices()
