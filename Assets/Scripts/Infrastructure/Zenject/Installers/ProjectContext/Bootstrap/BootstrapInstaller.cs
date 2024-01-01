@@ -98,6 +98,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
             Container.Bind<FinalizeBootstrapState>().AsSingle();
             Container.Bind<LoadSceneAsyncState>().AsSingle();
+            Container.Bind<LoadSceneWithTransitionAsyncState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
 
