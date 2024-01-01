@@ -1,7 +1,6 @@
 ﻿using DebuggerOptions;
 using Infrastructure.Coroutines.Runner;
 using Infrastructure.Coroutines.Runner.Core;
-using Infrastructure.Curtain;
 using Infrastructure.Curtain.Core;
 using Infrastructure.SceneManagement;
 using Infrastructure.SceneManagement.Core;
@@ -49,7 +48,10 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void BindMonoServices()
         {
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
-            Container.Bind<ILoadingScreen>().To<LoadingScreen>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
+            Container.Bind<ILoadingScreen>()
+                .To<LoadingScreen.LoadingScreen>()
+                .FromComponentInNewPrefab(_loadingCurtainPrefab)
+                .AsSingle();
         }
 
         private void BindServices()
@@ -93,7 +95,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<SetupApplicationState>().AsSingle();
             Container.Bind<LoadDataState>().AsSingle();
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
-            Container.Bind<LoadLevelState>().AsSingle();
+            Container.Bind<FinalizeBootstrapState>().AsSingle();
+            Container.Bind<LoadSceneAsyncState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
 

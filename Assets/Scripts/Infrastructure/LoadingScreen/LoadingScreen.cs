@@ -3,7 +3,7 @@ using DG.Tweening;
 using Infrastructure.Curtain.Core;
 using UnityEngine;
 
-namespace Infrastructure.Curtain
+namespace Infrastructure.LoadingScreen
 {
     public class LoadingScreen : MonoBehaviour, ILoadingScreen
     {
@@ -11,13 +11,10 @@ namespace Infrastructure.Curtain
         [SerializeField] private RectTransform _rectTransform;
 
         [Header("Preferences")]
-        [SerializeField] private float _delay = 0.3f;
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
 
         private Tween _moveTween;
-
-        public event Action OnHidden;
 
         #region MonoBehaviour
 
@@ -36,7 +33,7 @@ namespace Infrastructure.Curtain
             gameObject.SetActive(true);
         }
 
-        public void Hide()
+        public void Hide(Action onComplete = null)
         {
             if (gameObject.activeSelf == false)
                 return;
@@ -45,11 +42,10 @@ namespace Infrastructure.Curtain
 
             _moveTween = _rectTransform
                 .DOAnchorPosY(_rectTransform.rect.height, _duration)
-                .SetDelay(_delay)
                 .OnComplete(() =>
                 {
                     gameObject.SetActive(false);
-                    OnHidden?.Invoke();
+                    onComplete?.Invoke();
                 })
                 .SetEase(_ease)
                 .Play();

@@ -5,22 +5,21 @@ using Infrastructure.StateMachine.Main.States.Core;
 
 namespace Infrastructure.StateMachine.Game.States
 {
-    public class BootstrapAnalyticsState : IPayloadedState<string>, IGameState
+    public class BootstrapAnalyticsState : IState, IGameState
     {
         private readonly IStateMachine<IGameState> _gameStateMachine;
         private readonly IPersistentDataService _persistentDataService;
 
-        public BootstrapAnalyticsState(IStateMachine<IGameState> gameStateMachine,
-            IPersistentDataService persistentDataService)
+        public BootstrapAnalyticsState(IStateMachine<IGameState> gameStateMachine, IPersistentDataService persistentDataService)
         {
             _gameStateMachine = gameStateMachine;
             _persistentDataService = persistentDataService;
         }
 
-        public void Enter(string payload)
+        public void Enter()
         {
             _persistentDataService.PersistentData.AnalyticsData.SessionsCount++;
-            _gameStateMachine.Enter<LoadLevelState, string>(payload);
+            _gameStateMachine.Enter<FinalizeBootstrapState>();
         }
     }
 }
