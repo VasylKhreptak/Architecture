@@ -8,7 +8,7 @@ namespace Infrastructure.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService
     {
-        public void Save<T>(T data, string key)
+        public void Save<T>(string key, T data)
         {
             string jsonData = JsonConvert.SerializeObject(data);
 

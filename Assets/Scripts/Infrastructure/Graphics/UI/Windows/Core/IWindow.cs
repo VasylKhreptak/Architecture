@@ -1,6 +1,4 @@
-﻿using UniRx;
-
-namespace Infrastructure.Graphics.UI.Windows.Core
+﻿namespace Infrastructure.Graphics.UI.Windows.Core
 {
     public interface IWindow
     {

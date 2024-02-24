@@ -2,6 +2,7 @@
 using Infrastructure.Coroutines.Runner;
 using Infrastructure.Coroutines.Runner.Core;
 using Infrastructure.Curtain.Core;
+using Infrastructure.Data.SaveLoad;
 using Infrastructure.SceneManagement;
 using Infrastructure.SceneManagement.Core;
 using Infrastructure.Services.Framerate;
@@ -10,10 +11,7 @@ using Infrastructure.Services.ID.Core;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.Log.Core;
 using Infrastructure.Services.PersistentData;
-using Infrastructure.Services.PersistentData.Core;
 using Infrastructure.Services.SaveLoad;
-using Infrastructure.Services.SaveLoad.Core;
-using Infrastructure.Services.SaveLoadHandler;
 using Infrastructure.Services.Screen;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Core;
@@ -51,7 +49,10 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void BindMonoServices()
         {
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
-            Container.Bind<ILoadingScreen>().To<LoadingScreen.LoadingScreen>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
+            Container.Bind<ILoadingScreen>()
+                .To<LoadingScreen.LoadingScreen>()
+                .FromComponentInNewPrefab(_loadingCurtainPrefab)
+                .AsSingle();
             Container.Bind<ITransitionScreen>().To<TransitionScreen>().FromComponentInNewPrefab(_transitionScreenPrefab).AsSingle();
         }
 
@@ -59,26 +60,13 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             Container.Bind<IIDService>().To<IDService>().AsSingle();
             Container.Bind<ILogService>().To<LogService>().AsSingle();
-
-            IStaticDataService staticDataService = Container.Instantiate<StaticDataService>();
-            Container.Bind<IStaticDataService>().FromInstance(staticDataService).AsSingle();
-            staticDataService.Load();
-
-            Container.Bind<IPersistentDataService>().To<PersistentDataService>().AsSingle();
-            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.BindInterfacesTo<StaticDataService>().AsSingle();
+            Container.Resolve<IStaticDataService>().Load();
+            Container.BindInterfacesTo<PersistentDataService>().AsSingle();
+            Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
+            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<ScreenService>().AsSingle();
-
-            BindSaveLoadHandlerService();
-        }
-
-        private void BindSaveLoadHandlerService()
-        {
-            SaveLoadHandlerService saveLoadHandlerService = Container.Instantiate<SaveLoadHandlerService>();
-
-            saveLoadHandlerService.Add(Container.Resolve<IPersistentDataService>());
-
-            Container.BindInterfacesTo<SaveLoadHandlerService>().FromInstance(saveLoadHandlerService).AsSingle();
         }
 
         private void BindSceneLoader() => Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
@@ -95,6 +83,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<SetupApplicationState>().AsSingle();
             Container.Bind<LoadDataState>().AsSingle();
+            Container.Bind<SaveDataState>().AsSingle();
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
             Container.Bind<FinalizeBootstrapState>().AsSingle();
             Container.Bind<LoadSceneAsyncState>().AsSingle();
@@ -107,7 +96,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void InitializeDebugger()
         {
             SRDebug.Init();
-            SRDebug.Instance.AddOptionContainer(Container.Instantiate<SROptionsContainer>());
+            SRDebug.Instance.AddOptionContainer(Container.Instantiate<GameOptions>());
         }
 
         private void MakeInitializable() => Container.Bind<IInitializable>().FromInstance(this).AsSingle();

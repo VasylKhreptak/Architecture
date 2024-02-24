@@ -1,29 +1,21 @@
 using Infrastructure.Services.PersistentData.Core;
 using Infrastructure.Services.SaveLoad.Core;
-using Zenject;
 
 namespace Infrastructure.Services.PersistentData
 {
     public class PersistentDataService : IPersistentDataService
     {
-        private ISaveLoadService _saveLoadService;
+        private readonly ISaveLoadService _saveLoadService;
 
-        public Data.Persistent.PersistentData PersistentData { get; set; }
-
-        [Inject]
-        private void Constructor(ISaveLoadService saveLoadService)
+        public PersistentDataService(ISaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;
         }
 
-        public void Save()
-        {
-            _saveLoadService.Save(PersistentData, nameof(Data.Persistent.PersistentData));
-        }
+        public Data.Persistent.PersistentData Data { get; private set; }
 
-        public void Load()
-        {
-            PersistentData = _saveLoadService.Load(nameof(PersistentData), new Data.Persistent.PersistentData());
-        }
+        public void Save() => _saveLoadService.Save(nameof(PersistentData), Data);
+
+        public void Load() => Data = _saveLoadService.Load<Data.Persistent.PersistentData>(nameof(PersistentData));
     }
 }

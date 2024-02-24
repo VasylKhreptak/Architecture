@@ -1,9 +1,9 @@
-using Plugins.Banks.Data.Economy;
+using Plugins.Banks;
 
 namespace Infrastructure.Data.Persistent
 {
     public class PlayerData
     {
-        public Banks Resources = new Banks();
+        public readonly IntegerBank Coins = new IntegerBank(0);
     }
 }
