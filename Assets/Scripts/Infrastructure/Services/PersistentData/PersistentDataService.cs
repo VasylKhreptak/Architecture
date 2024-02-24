@@ -16,6 +16,6 @@ namespace Infrastructure.Services.PersistentData
 
         public void Save() => _saveLoadService.Save(nameof(PersistentData), Data);
 
-        public void Load() => Data = _saveLoadService.Load<Data.Persistent.PersistentData>(nameof(PersistentData));
+        public void Load() => Data = _saveLoadService.Load(nameof(PersistentData), new Data.Persistent.PersistentData());
     }
 }
