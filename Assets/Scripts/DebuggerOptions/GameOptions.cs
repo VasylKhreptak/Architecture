@@ -1,20 +1,29 @@
-﻿using Infrastructure.StateMachine.Game.States;
+﻿using System.ComponentModel;
+using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
-using JetBrains.Annotations;
+using Infrastructure.Transition.Core;
 
 namespace DebuggerOptions
 {
     public class GameOptions
     {
         private readonly IStateMachine<IGameState> _stateMachine;
+        private readonly ITransitionScreen _transitionScreen;
 
-        public GameOptions(IStateMachine<IGameState> stateMachine)
+        public GameOptions(IStateMachine<IGameState> stateMachine, ITransitionScreen transitionScreen)
         {
             _stateMachine = stateMachine;
+            _transitionScreen = transitionScreen;
         }
 
-        [UsedImplicitly]
+        [Category("Game")]
         public void EnterBootstrapState() => _stateMachine.Enter<BootstrapState>();
+
+        [Category("Game")]
+        public void ShowTransitionScreen() => _transitionScreen.Show();
+
+        [Category("Game")]
+        public void HideTransitionScreen() => _transitionScreen.Hide();
     }
 }

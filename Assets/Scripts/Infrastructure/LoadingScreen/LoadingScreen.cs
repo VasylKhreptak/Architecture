@@ -18,17 +18,13 @@ namespace Infrastructure.LoadingScreen
 
         #region MonoBehaviour
 
-        private void OnDestroy()
-        {
-            KillTween();
-        }
+        private void OnDestroy() => _moveTween?.Kill();
 
         #endregion
 
         public void Show()
         {
-            KillTween();
-
+            _moveTween?.Kill();
             _rectTransform.anchoredPosition = Vector2.zero;
             gameObject.SetActive(true);
         }
@@ -38,8 +34,7 @@ namespace Infrastructure.LoadingScreen
             if (gameObject.activeSelf == false)
                 return;
 
-            KillTween();
-
+            _moveTween?.Kill();
             _moveTween = _rectTransform
                 .DOAnchorPosY(_rectTransform.rect.height, _duration)
                 .OnComplete(() =>
@@ -49,11 +44,6 @@ namespace Infrastructure.LoadingScreen
                 })
                 .SetEase(_ease)
                 .Play();
-        }
-
-        private void KillTween()
-        {
-            _moveTween.Kill();
         }
     }
 }
