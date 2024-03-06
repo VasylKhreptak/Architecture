@@ -1,10 +1,11 @@
 ﻿using Infrastructure.Data.Static;
 using Infrastructure.Services.StaticData.Core;
 using UnityEngine;
+using Zenject;
 
 namespace Infrastructure.Services.StaticData
 {
-    public class StaticDataService : IStaticDataService
+    public class StaticDataService : IStaticDataService, IInitializable
     {
         private const string GameConfigPath = "StaticData/GameConfig";
         private const string GameBalancePath = "StaticData/GameBalance";
@@ -14,6 +15,8 @@ namespace Infrastructure.Services.StaticData
         public GameBalance Balance { get; private set; }
 
         public GamePrefabs Prefabs { get; private set; }
+
+        public void Initialize() => Load();
 
         public void Load()
         {

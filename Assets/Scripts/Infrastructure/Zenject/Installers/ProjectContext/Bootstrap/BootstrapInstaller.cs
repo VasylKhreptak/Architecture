@@ -1,27 +1,20 @@
 ﻿using DebuggerOptions;
 using Infrastructure.Coroutines.Runner;
-using Infrastructure.Coroutines.Runner.Core;
-using Infrastructure.Curtain.Core;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.SceneManagement;
-using Infrastructure.SceneManagement.Core;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
-using Infrastructure.Services.ID.Core;
 using Infrastructure.Services.Log;
-using Infrastructure.Services.Log.Core;
 using Infrastructure.Services.PersistentData;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.Screen;
 using Infrastructure.Services.StaticData;
-using Infrastructure.Services.StaticData.Core;
 using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.Factory;
 using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.Transition;
-using Infrastructure.Transition.Core;
 using UnityEngine;
 using Zenject;
 
@@ -48,20 +41,16 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         private void BindMonoServices()
         {
-            Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
-            Container.Bind<ILoadingScreen>()
-                .To<LoadingScreen.LoadingScreen>()
-                .FromComponentInNewPrefab(_loadingCurtainPrefab)
-                .AsSingle();
-            Container.Bind<ITransitionScreen>().To<TransitionScreen>().FromComponentInNewPrefab(_transitionScreenPrefab).AsSingle();
+            Container.BindInterfacesTo<CoroutineRunner>().FromComponentInNewPrefab(_coroutineRunnerPrefab).AsSingle();
+            Container.BindInterfacesTo<LoadingScreen.LoadingScreen>().FromComponentInNewPrefab(_loadingCurtainPrefab).AsSingle();
+            Container.BindInterfacesTo<TransitionScreen>().FromComponentInNewPrefab(_transitionScreenPrefab).AsSingle();
         }
 
         private void BindServices()
         {
-            Container.Bind<IIDService>().To<IDService>().AsSingle();
-            Container.Bind<ILogService>().To<LogService>().AsSingle();
+            Container.BindInterfacesTo<IDService>().AsSingle();
+            Container.BindInterfacesTo<LogService>().AsSingle();
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
-            Container.Resolve<IStaticDataService>().Load();
             Container.BindInterfacesTo<PersistentDataService>().AsSingle();
             Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
@@ -69,7 +58,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<ScreenService>().AsSingle();
         }
 
-        private void BindSceneLoader() => Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+        private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
 
         private void BindGameStateMachine()
         {
