@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Infrastructure.Curtain.Core;
+using Infrastructure.LoadingScreen.Core;
 using UnityEngine;
 
 namespace Infrastructure.LoadingScreen

@@ -49,7 +49,7 @@ namespace Infrastructure.Services.SaveLoad
 
             return File.Exists(path);
         }
-        
+
         public void Delete(string key)
         {
             string path = Path.Combine(Application.persistentDataPath, key);

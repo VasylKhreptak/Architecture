@@ -1,5 +1,5 @@
 using System;
-using Infrastructure.Services.Screen.Core;
+using Infrastructure.Observers.Screen;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -13,12 +13,12 @@ namespace Graphics.Screen.Utility
 
         private IDisposable _subscription;
 
-        private IScreenService _screeService;
+        private ScreenObserver _screeService;
 
         [Inject]
-        private void Constructor(IScreenService screenService)
+        private void Constructor(ScreenObserver screenObserver)
         {
-            _screeService = screenService;
+            _screeService = screenObserver;
         }
 
         #region MonoBehaiour

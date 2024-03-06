@@ -1,6 +1,6 @@
 using System;
 
-namespace Infrastructure.Curtain.Core
+namespace Infrastructure.LoadingScreen.Core
 {
     public interface ILoadingScreen
     {

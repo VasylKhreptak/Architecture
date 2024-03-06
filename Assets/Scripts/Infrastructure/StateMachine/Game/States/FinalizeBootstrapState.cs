@@ -1,4 +1,4 @@
-﻿using Infrastructure.Curtain.Core;
+﻿using Infrastructure.LoadingScreen.Core;
 using Infrastructure.Services.StaticData.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
@@ -24,8 +24,7 @@ namespace Infrastructure.StateMachine.Game.States
         {
             LoadSceneAsyncState.Payload payload = new LoadSceneAsyncState.Payload
             {
-                SceneName = _staticDataService.Config.MainScene,
-                OnComplete = OnSceneLoaded
+                SceneName = _staticDataService.Config.MainScene, OnComplete = OnSceneLoaded
             };
 
             _stateMachine.Enter<LoadSceneAsyncState, LoadSceneAsyncState.Payload>(payload);

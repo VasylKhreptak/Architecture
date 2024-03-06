@@ -1,14 +1,13 @@
 ﻿using System;
-using Infrastructure.Services.Screen.Core;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Infrastructure.Services.Screen
+namespace Infrastructure.Observers.Screen
 {
-    public class ScreenService : IScreenService, IInitializable, IDisposable
+    public class ScreenObserver : IInitializable, IDisposable
     {
-        private const float _updateInterval = 1 / 10f;
+        private const float UpdateInterval = 1 / 10f;
 
         private readonly ReactiveProperty<ScreenOrientation> _screenOrientation = new ReactiveProperty<ScreenOrientation>();
         private readonly ReactiveProperty<Vector2Int> _screenResolution = new ReactiveProperty<Vector2Int>();
@@ -33,7 +32,7 @@ namespace Infrastructure.Services.Screen
             StopObserving();
 
             _intervalSubscription = Observable
-                .Interval(TimeSpan.FromSeconds(_updateInterval))
+                .Interval(TimeSpan.FromSeconds(UpdateInterval))
                 .DoOnSubscribe(Observe)
                 .Subscribe(_ => Observe());
         }

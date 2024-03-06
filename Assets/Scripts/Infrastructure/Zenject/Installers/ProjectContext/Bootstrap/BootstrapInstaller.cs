@@ -1,13 +1,13 @@
 ﻿using DebuggerOptions;
 using Infrastructure.Coroutines.Runner;
 using Infrastructure.Data.SaveLoad;
+using Infrastructure.Observers.Screen;
 using Infrastructure.SceneManagement;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.PersistentData;
 using Infrastructure.Services.SaveLoad;
-using Infrastructure.Services.Screen;
 using Infrastructure.Services.StaticData;
 using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.Factory;
@@ -32,6 +32,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             BindMonoServices();
             BindSceneLoader();
             BindServices();
+            BindScreenObserver();
             BindGameStateMachine();
             InitializeDebugger();
             MakeInitializable();
@@ -55,8 +56,9 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
-            Container.BindInterfacesTo<ScreenService>().AsSingle();
         }
+
+        private void BindScreenObserver() => Container.BindInterfacesAndSelfTo<ScreenObserver>().AsSingle();
 
         private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
 
