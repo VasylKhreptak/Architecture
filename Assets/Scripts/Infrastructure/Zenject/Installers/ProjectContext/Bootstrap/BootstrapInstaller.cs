@@ -34,6 +34,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             BindServices();
             BindScreenObserver();
             BindGameStateMachine();
+            BindApplicationPauseDataSaver();
             InitializeDebugger();
             MakeInitializable();
         }
@@ -53,7 +54,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<LogService>().AsSingle();
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
             Container.BindInterfacesTo<PersistentDataService>().AsSingle();
-            Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
         }
@@ -81,6 +81,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<LoadSceneWithTransitionAsyncState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }
+
+        private void BindApplicationPauseDataSaver() => Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();
 
         private void BootstrapGame() => Container.Resolve<IStateMachine<IGameState>>().Enter<BootstrapState>();
 
