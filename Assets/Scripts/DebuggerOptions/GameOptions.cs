@@ -18,7 +18,7 @@ namespace DebuggerOptions
         }
 
         [Category("Game")]
-        public void EnterBootstrapState() => _stateMachine.Enter<BootstrapState>();
+        public void Reload() => _stateMachine.Enter<ReloadState>();
 
         [Category("Game")]
         public void ShowTransitionScreen() => _transitionScreen.Show();

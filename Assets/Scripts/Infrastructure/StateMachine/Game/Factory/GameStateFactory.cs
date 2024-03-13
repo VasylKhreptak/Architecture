@@ -14,12 +14,16 @@ namespace Infrastructure.StateMachine.Game.Factory
         protected override Dictionary<Type, Func<IBaseState>> BuildStatesMap() =>
             new Dictionary<Type, Func<IBaseState>>
             {
+                //chained
                 [typeof(BootstrapState)] = _container.Resolve<BootstrapState>,
-                [typeof(SetupApplicationState)] = _container.Resolve<SetupApplicationState>,
                 [typeof(LoadDataState)] = _container.Resolve<LoadDataState>,
-                [typeof(SaveDataState)] = _container.Resolve<SaveDataState>,
+                [typeof(SetupApplicationState)] = _container.Resolve<SetupApplicationState>,
                 [typeof(BootstrapAnalyticsState)] = _container.Resolve<BootstrapAnalyticsState>,
                 [typeof(FinalizeBootstrapState)] = _container.Resolve<FinalizeBootstrapState>,
+
+                //other
+                [typeof(ReloadState)] = _container.Resolve<ReloadState>,
+                [typeof(SaveDataState)] = _container.Resolve<SaveDataState>,
                 [typeof(LoadSceneAsyncState)] = _container.Resolve<LoadSceneAsyncState>,
                 [typeof(LoadSceneWithTransitionAsyncState)] = _container.Resolve<LoadSceneWithTransitionAsyncState>,
                 [typeof(GameLoopState)] = _container.Resolve<GameLoopState>

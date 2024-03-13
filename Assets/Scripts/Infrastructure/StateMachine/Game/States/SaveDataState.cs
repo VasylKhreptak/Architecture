@@ -20,7 +20,7 @@ namespace Infrastructure.StateMachine.Game.States
         public void Enter()
         {
             _persistentDataService.Save();
-            _gameStateMachine.Back();
+            _gameStateMachine.Enter<GameLoopState>();
         }
     }
 }

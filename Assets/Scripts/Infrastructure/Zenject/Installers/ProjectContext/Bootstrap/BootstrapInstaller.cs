@@ -71,13 +71,17 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         private void BindGameStates()
         {
+            //chained
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<SetupApplicationState>().AsSingle();
             Container.Bind<LoadDataState>().AsSingle();
-            Container.Bind<SaveDataState>().AsSingle();
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
             Container.Bind<FinalizeBootstrapState>().AsSingle();
+
+            //other
+            Container.Bind<ReloadState>().AsSingle();
             Container.Bind<LoadSceneAsyncState>().AsSingle();
+            Container.Bind<SaveDataState>().AsSingle();
             Container.Bind<LoadSceneWithTransitionAsyncState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
         }

@@ -18,7 +18,7 @@ namespace Infrastructure.StateMachine.Game.States
         public void Enter()
         {
             DisableSleepTimeout();
-            _gameStateMachine.Enter<LoadDataState>();
+            _gameStateMachine.Enter<BootstrapAnalyticsState>();
         }
 
         private void DisableSleepTimeout() => Screen.sleepTimeout = SleepTimeout.NeverSleep;
