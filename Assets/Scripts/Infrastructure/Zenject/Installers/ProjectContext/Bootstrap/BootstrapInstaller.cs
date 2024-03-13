@@ -77,13 +77,13 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<LoadDataState>().AsSingle();
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
             Container.Bind<FinalizeBootstrapState>().AsSingle();
+            Container.Bind<GameLoopState>().AsSingle();
 
             //other
             Container.Bind<ReloadState>().AsSingle();
             Container.Bind<LoadSceneAsyncState>().AsSingle();
             Container.Bind<SaveDataState>().AsSingle();
             Container.Bind<LoadSceneWithTransitionAsyncState>().AsSingle();
-            Container.Bind<GameLoopState>().AsSingle();
         }
 
         private void BindApplicationPauseDataSaver() => Container.BindInterfacesTo<ApplicationPauseDataSaver>().AsSingle();

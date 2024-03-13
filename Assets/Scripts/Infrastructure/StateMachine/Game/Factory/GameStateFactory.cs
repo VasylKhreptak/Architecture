@@ -20,13 +20,13 @@ namespace Infrastructure.StateMachine.Game.Factory
                 [typeof(SetupApplicationState)] = _container.Resolve<SetupApplicationState>,
                 [typeof(BootstrapAnalyticsState)] = _container.Resolve<BootstrapAnalyticsState>,
                 [typeof(FinalizeBootstrapState)] = _container.Resolve<FinalizeBootstrapState>,
+                [typeof(GameLoopState)] = _container.Resolve<GameLoopState>,
 
                 //other
                 [typeof(ReloadState)] = _container.Resolve<ReloadState>,
                 [typeof(SaveDataState)] = _container.Resolve<SaveDataState>,
                 [typeof(LoadSceneAsyncState)] = _container.Resolve<LoadSceneAsyncState>,
                 [typeof(LoadSceneWithTransitionAsyncState)] = _container.Resolve<LoadSceneWithTransitionAsyncState>,
-                [typeof(GameLoopState)] = _container.Resolve<GameLoopState>
             };
     }
 }
