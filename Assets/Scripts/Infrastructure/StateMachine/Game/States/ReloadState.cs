@@ -2,6 +2,7 @@
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.StateMachine.Main.States.Core;
+using Infrastructure.Transition.Core;
 
 namespace Infrastructure.StateMachine.Game.States
 {
@@ -9,18 +10,25 @@ namespace Infrastructure.StateMachine.Game.States
     {
         private readonly IStateMachine<IGameState> _stateMachine;
         private readonly ILogService _logService;
+        private readonly ITransitionScreen _transitionScreen;
 
-        public ReloadState(IStateMachine<IGameState> stateMachine, ILogService logService)
+        public ReloadState(IStateMachine<IGameState> stateMachine, ILogService logService, ITransitionScreen transitionScreen)
         {
             _stateMachine = stateMachine;
             _logService = logService;
+            _transitionScreen = transitionScreen;
         }
 
         public void Enter()
         {
             _logService.Log("ReloadState");
-            _stateMachine.Enter<SaveDataState>();
-            _stateMachine.Enter<BootstrapState>();
+
+            _transitionScreen.Show(() =>
+            {
+                _stateMachine.Enter<SaveDataState>();
+                _stateMachine.Enter<BootstrapState>();
+                _transitionScreen.HideImmediately();
+            });
         }
     }
 }
