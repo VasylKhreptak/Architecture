@@ -24,7 +24,7 @@ namespace Infrastructure.Services.Framerate
         public void Initialize()
         {
             DisableVsync();
-            SetTargetFramerate((int)UnityEngine.Screen.currentResolution.refreshRateRatio.value);
+            SetTargetFramerate((int)Screen.currentResolution.refreshRateRatio.value);
             StartCapturingFrames();
             StartUpdatingAverageFramerate();
         }

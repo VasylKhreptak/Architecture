@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services.Log.Core;
+﻿using System;
+using Infrastructure.Services.Log.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.StateMachine.Main.States.Core;
@@ -25,9 +26,11 @@ namespace Infrastructure.StateMachine.Game.States
 
             _transitionScreen.Show(() =>
             {
-                _stateMachine.Enter<SaveDataState>();
-                _stateMachine.Enter<BootstrapState>();
-                _transitionScreen.HideImmediately();
+                _stateMachine.Enter<SaveDataState, Action>(() =>
+                {
+                    _stateMachine.Enter<BootstrapState>();
+                    _transitionScreen.HideImmediately();
+                });
             });
         }
     }

@@ -26,7 +26,7 @@ namespace Infrastructure.StateMachine.Game.Factory
                 [typeof(ReloadState)] = _container.Resolve<ReloadState>,
                 [typeof(SaveDataState)] = _container.Resolve<SaveDataState>,
                 [typeof(LoadSceneAsyncState)] = _container.Resolve<LoadSceneAsyncState>,
-                [typeof(LoadSceneWithTransitionAsyncState)] = _container.Resolve<LoadSceneWithTransitionAsyncState>,
+                [typeof(LoadSceneWithTransitionAsyncState)] = _container.Resolve<LoadSceneWithTransitionAsyncState>
             };
     }
 }

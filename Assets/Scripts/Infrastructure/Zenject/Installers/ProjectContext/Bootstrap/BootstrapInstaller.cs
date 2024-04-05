@@ -9,6 +9,7 @@ using Infrastructure.Services.Log;
 using Infrastructure.Services.PersistentData;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.StaticData;
+using Infrastructure.Services.StaticData.Core;
 using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.Factory;
 using Infrastructure.StateMachine.Game.States;
@@ -53,6 +54,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<IDService>().AsSingle();
             Container.BindInterfacesTo<LogService>().AsSingle();
             Container.BindInterfacesTo<StaticDataService>().AsSingle();
+            Container.Resolve<IStaticDataService>().Load();
             Container.BindInterfacesTo<PersistentDataService>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
@@ -73,8 +75,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             //chained
             Container.Bind<BootstrapState>().AsSingle();
-            Container.Bind<SetupApplicationState>().AsSingle();
             Container.Bind<LoadDataState>().AsSingle();
+            Container.Bind<SetupApplicationState>().AsSingle();
             Container.Bind<BootstrapAnalyticsState>().AsSingle();
             Container.Bind<FinalizeBootstrapState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
