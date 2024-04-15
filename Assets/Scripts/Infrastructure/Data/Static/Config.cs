@@ -4,7 +4,7 @@ using LogType = Infrastructure.Services.Log.Core.LogType;
 namespace Infrastructure.Data.Static
 {
     [CreateAssetMenu(fileName = "GameConfig", menuName = "ScriptableObjects/Static/GameConfig", order = 0)]
-    public class GameConfig : ScriptableObject
+    public class Config : ScriptableObject
     {
         [Header("Scenes")]
         [SerializeField] private string _bootstrapScene = "Bootstrap";

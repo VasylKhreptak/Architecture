@@ -10,16 +10,15 @@ namespace Infrastructure.Services.StaticData
         private const string GameBalancePath = "StaticData/GameBalance";
         private const string GamePrefabsPath = "StaticData/GamePrefabs";
 
-        public GameConfig Config { get; private set; }
-        public GameBalance Balance { get; private set; }
-
-        public GamePrefabs Prefabs { get; private set; }
+        public Config Config { get; private set; }
+        public Balance Balance { get; private set; }
+        public Prefabs Prefabs { get; private set; }
 
         public void Load()
         {
-            Config = Resources.Load<GameConfig>(GameConfigPath);
-            Balance = Resources.Load<GameBalance>(GameBalancePath);
-            Prefabs = Resources.Load<GamePrefabs>(GamePrefabsPath);
+            Config = Resources.Load<Config>(GameConfigPath);
+            Balance = Resources.Load<Balance>(GameBalancePath);
+            Prefabs = Resources.Load<Prefabs>(GamePrefabsPath);
         }
     }
 }

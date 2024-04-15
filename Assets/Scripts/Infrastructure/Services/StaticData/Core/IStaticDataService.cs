@@ -5,8 +5,8 @@ namespace Infrastructure.Services.StaticData.Core
 {
     public interface IStaticDataService : ILoadHandler
     {
-        public GameConfig Config { get; }
-        public GameBalance Balance { get; }
-        public GamePrefabs Prefabs { get; }
+        public Config Config { get; }
+        public Balance Balance { get; }
+        public Prefabs Prefabs { get; }
     }
 }
