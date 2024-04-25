@@ -1,4 +1,4 @@
-using Plugins.Banks;
+using Plugins.Banks.Integer;
 
 namespace Infrastructure.Data.Persistent
 {
