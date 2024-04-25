@@ -26,8 +26,7 @@ namespace Infrastructure.Data.SaveLoad
             SaveData();
         }
 
-        private void StartObserving() =>
-            _subscription = Observable.EveryApplicationPause().Where(x => x).Subscribe(_ => OnApplicationPaused());
+        private void StartObserving() => _subscription = Observable.EveryApplicationPause().Where(x => x).Subscribe(_ => OnApplicationPaused());
 
         private void StopObserving() => _subscription?.Dispose();
 
