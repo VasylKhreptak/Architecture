@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using Infrastructure.Coroutines.Runner.Core;
 using Infrastructure.SceneManagement.Core;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -20,20 +18,12 @@ namespace Infrastructure.SceneManagement
 
         public void Load(string name) => SceneManager.LoadScene(name);
 
-        public void LoadAsync(string name, Action onComplete = null) => _coroutineRunner.StartCoroutine(LoadSceneRoutine(name, onComplete));
+        public async UniTask LoadAsync(string name) => await LoadSceneAsync(name);
 
         public void LoadCurrentScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        public void LoadCurrentSceneAsync(Action onComplete = null) =>
-            _coroutineRunner.StartCoroutine(LoadSceneRoutine(SceneManager.GetActiveScene().name, onComplete));
+        public async UniTask LoadCurrentSceneAsync() => await LoadSceneAsync(SceneManager.GetActiveScene().name);
 
-        private IEnumerator LoadSceneRoutine(string name, Action onComplete = null)
-        {
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(name);
-
-            yield return new WaitUntil(() => asyncOperation.isDone);
-
-            onComplete?.Invoke();
-        }
+        private async UniTask LoadSceneAsync(string name) => await SceneManager.LoadSceneAsync(name).ToUniTask();
     }
 }

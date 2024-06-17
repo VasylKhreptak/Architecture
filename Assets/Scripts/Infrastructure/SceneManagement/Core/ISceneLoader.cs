@@ -1,4 +1,4 @@
-using System;
+using Cysharp.Threading.Tasks;
 
 namespace Infrastructure.SceneManagement.Core
 {
@@ -6,10 +6,10 @@ namespace Infrastructure.SceneManagement.Core
     {
         public void Load(string name);
 
-        public void LoadAsync(string name, Action onComplete = null);
+        public UniTask LoadAsync(string name);
 
         public void LoadCurrentScene();
 
-        public void LoadCurrentSceneAsync(Action onComplete = null);
+        public UniTask LoadCurrentSceneAsync();
     }
 }

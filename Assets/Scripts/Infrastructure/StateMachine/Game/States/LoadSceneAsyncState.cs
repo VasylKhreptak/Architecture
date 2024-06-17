@@ -20,16 +20,13 @@ namespace Infrastructure.StateMachine.Game.States
             _logService = logService;
         }
 
-        public void Enter(Payload payload)
+        public async void Enter(Payload payload)
         {
             _logService.Log($"LoadSceneAsyncState: {payload.SceneName}");
-            _sceneLoader.LoadAsync(payload.SceneName, () => OnLoadedScene(payload));
-        }
 
-        private void OnLoadedScene(Payload payload)
-        {
-            payload.OnComplete?.Invoke();
+            await _sceneLoader.LoadAsync(payload.SceneName);
             _gameStateMachine.Enter<GameLoopState>();
+            payload.OnComplete?.Invoke();
         }
 
         public class Payload

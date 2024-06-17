@@ -26,13 +26,13 @@ namespace Infrastructure.StateMachine.Game.States
             _logService = logService;
         }
 
-        public void Enter()
+        public async void Enter()
         {
             _logService.Log("BootstrapState");
-            _loadingScreen.Show();
-            _sceneLoader.LoadAsync(_staticDataService.Config.BootstrapScene.Name, OnLoadedScene);
-        }
 
-        private void OnLoadedScene() => _stateMachine.Enter<LoadDataState>();
+            _loadingScreen.Show();
+            await _sceneLoader.LoadAsync(_staticDataService.Config.BootstrapScene.Name);
+            _stateMachine.Enter<LoadDataState>();
+        }
     }
 }
