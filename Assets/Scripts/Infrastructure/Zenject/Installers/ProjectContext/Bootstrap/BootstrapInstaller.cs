@@ -3,6 +3,7 @@ using Infrastructure.Coroutines.Runner;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
 using Infrastructure.SceneManagement;
+using Infrastructure.SceneTransition;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.Log;
@@ -18,7 +19,6 @@ using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.Tools;
-using Infrastructure.Transition;
 using UnityEngine;
 using Zenject;
 

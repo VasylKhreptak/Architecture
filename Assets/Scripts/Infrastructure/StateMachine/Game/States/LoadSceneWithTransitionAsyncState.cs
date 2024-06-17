@@ -1,8 +1,8 @@
-﻿using Infrastructure.Services.Log.Core;
+﻿using Infrastructure.SceneTransition.Core;
+using Infrastructure.Services.Log.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.StateMachine.Main.States.Core;
-using Infrastructure.Transition.Core;
 
 namespace Infrastructure.StateMachine.Game.States
 {

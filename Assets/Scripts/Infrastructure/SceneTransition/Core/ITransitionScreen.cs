@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Transition.Core
+namespace Infrastructure.SceneTransition.Core
 {
     public interface ITransitionScreen
     {

@@ -6,10 +6,7 @@ namespace Infrastructure.EntryPoints.Game
 {
     public class GameRunner : MonoBehaviour, IEntryPoint
     {
-        private void Awake()
-        {
-            Enter();
-        }
+        private void Awake() => Enter();
 
         public void Enter()
         {

@@ -23,20 +23,11 @@ namespace Graphics.Screen.Utility
 
         #region MonoBehaiour
 
-        private void OnValidate()
-        {
-            _rectTransform ??= GetComponent<RectTransform>();
-        }
+        private void OnValidate() => _rectTransform ??= GetComponent<RectTransform>();
 
-        private void OnEnable()
-        {
-            StartObserving();
-        }
+        private void OnEnable() => StartObserving();
 
-        private void OnDisable()
-        {
-            StopObserving();
-        }
+        private void OnDisable() => StopObserving();
 
         #endregion
 
@@ -49,10 +40,7 @@ namespace Graphics.Screen.Utility
                 .Subscribe(tuple => UpdateArea());
         }
 
-        private void StopObserving()
-        {
-            _subscription?.Dispose();
-        }
+        private void StopObserving() => _subscription?.Dispose();
 
         private void UpdateArea()
         {

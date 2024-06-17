@@ -17,15 +17,9 @@ namespace Infrastructure.Observers.Screen
         public IReadOnlyReactiveProperty<ScreenOrientation> ScreenOrientation => _screenOrientation;
         public IReadOnlyReactiveProperty<Vector2Int> ScreenResolution => _screenResolution;
 
-        public void Initialize()
-        {
-            StartObserving();
-        }
+        public void Initialize() => StartObserving();
 
-        public void Dispose()
-        {
-            StopObserving();
-        }
+        public void Dispose() => StopObserving();
 
         private void StartObserving()
         {
@@ -33,8 +27,8 @@ namespace Infrastructure.Observers.Screen
 
             _intervalSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(UpdateInterval))
-                .DoOnSubscribe(Observe)
-                .Subscribe(_ => Observe());
+                .DoOnSubscribe(UpdateValues)
+                .Subscribe(_ => UpdateValues());
         }
 
         private void StopObserving()
@@ -43,7 +37,7 @@ namespace Infrastructure.Observers.Screen
             _intervalSubscription = null;
         }
 
-        private void Observe()
+        private void UpdateValues()
         {
             _screenOrientation.Value = UnityEngine.Screen.orientation;
             _screenResolution.Value = new Vector2Int(UnityEngine.Screen.width, UnityEngine.Screen.height);

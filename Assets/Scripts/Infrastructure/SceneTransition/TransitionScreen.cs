@@ -1,9 +1,9 @@
 ﻿using System;
 using DG.Tweening;
-using Infrastructure.Transition.Core;
+using Infrastructure.SceneTransition.Core;
 using UnityEngine;
 
-namespace Infrastructure.Transition
+namespace Infrastructure.SceneTransition
 {
     public class TransitionScreen : MonoBehaviour, ITransitionScreen
     {

@@ -18,25 +18,14 @@ namespace Infrastructure.SceneManagement
             _coroutineRunner = coroutineRunner;
         }
 
-        public void Load(string name)
-        {
-            SceneManager.LoadScene(name);
-        }
+        public void Load(string name) => SceneManager.LoadScene(name);
 
-        public void LoadAsync(string name, Action onComplete = null)
-        {
-            _coroutineRunner.StartCoroutine(LoadSceneRoutine(name, onComplete));
-        }
+        public void LoadAsync(string name, Action onComplete = null) => _coroutineRunner.StartCoroutine(LoadSceneRoutine(name, onComplete));
 
-        public void LoadCurrentScene()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        public void LoadCurrentScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        public void LoadCurrentSceneAsync(Action onComplete = null)
-        {
+        public void LoadCurrentSceneAsync(Action onComplete = null) =>
             _coroutineRunner.StartCoroutine(LoadSceneRoutine(SceneManager.GetActiveScene().name, onComplete));
-        }
 
         private IEnumerator LoadSceneRoutine(string name, Action onComplete = null)
         {
