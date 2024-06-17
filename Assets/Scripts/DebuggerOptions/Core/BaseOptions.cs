@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugins.StompyRobot.SRDebugger.Attributes;
 using Zenject;
 
 namespace DebuggerOptions.Core
@@ -8,6 +9,7 @@ namespace DebuggerOptions.Core
         private bool _initialized;
         private bool _disposed;
 
+        [Ignore]
         public void Initialize()
         {
             if (_initialized)
@@ -19,6 +21,7 @@ namespace DebuggerOptions.Core
             _disposed = false;
         }
 
+        [Ignore]
         public void Dispose()
         {
             if (_disposed)

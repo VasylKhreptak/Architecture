@@ -1,4 +1,6 @@
-﻿namespace SRDebugger.Internal
+﻿using Plugins.StompyRobot.SRDebugger.Attributes;
+
+namespace SRDebugger.Internal
 {
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -61,7 +63,8 @@
                 return false;
             }
 
-            Debug.LogWarning("[SRDebugger] No EventSystem found in scene - creating a default one. Disable this behaviour in Window -> SRDebugger -> Settings Window -> Advanced)");
+            Debug.LogWarning(
+                "[SRDebugger] No EventSystem found in scene - creating a default one. Disable this behaviour in Window -> SRDebugger -> Settings Window -> Advanced)");
 
             CreateDefaultEventSystem();
             return true;
@@ -88,13 +91,23 @@
 #else
 
             var members =
-                obj.GetType().GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty |
-                                         BindingFlags.SetProperty | BindingFlags.InvokeMethod);
+                obj.GetType()
+                    .GetMembers(BindingFlags.Instance |
+                                BindingFlags.Public |
+                                BindingFlags.GetProperty |
+                                BindingFlags.SetProperty |
+                                BindingFlags.InvokeMethod);
 
 #endif
 
             foreach (var memberInfo in members)
             {
+                //find Ignore attribute and ignore 
+                var ignoreAttribute = SRReflection.GetAttribute<Ignore>(memberInfo);
+
+                if (ignoreAttribute != null)
+                    continue;
+
                 // Find user-specified category name from attribute
                 var categoryAttribute = SRReflection.GetAttribute<CategoryAttribute>(memberInfo);
                 var category = categoryAttribute == null ? "Default" : categoryAttribute.Category;
@@ -145,7 +158,7 @@
                     }
 
                     // Skip methods with parameters or non-void return type
-                    if (methodInfo.ReturnType != typeof (void) || methodInfo.GetParameters().Length > 0)
+                    if (methodInfo.ReturnType != typeof(void) || methodInfo.GetParameters().Length > 0)
                     {
                         continue;
                     }
