@@ -64,10 +64,9 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();
         }
 
-        private IToastMessageService GetToastMessageServiceImpl() =>
-            InstallerHelper
-                .SelectImplementation<IToastMessageService, AndroidToastMessageService, IOSToastMessageService, DefaultToastMessageService>(
-                    Container);
+        private IToastMessageService GetToastMessageServiceImpl(InjectContext context) =>
+            InstallerTools
+                .SelectImplementation<IToastMessageService, AndroidToastMessageService, IOSToastMessageService, DefaultToastMessageService>(context);
 
         private void BindScreenObserver() => Container.BindInterfacesAndSelfTo<ScreenObserver>().AsSingle();
 
@@ -104,7 +103,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         private void InitializeDebugger()
         {
             SRDebug.Init();
-            SRDebug.Instance.AddOptionContainer(Container.Instantiate<GameOptions>());
+            Container.BindInterfacesTo<GameOptions>().AsSingle();
         }
 
         private void MakeInitializable() => Container.Bind<IInitializable>().FromInstance(this).AsSingle();

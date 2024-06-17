@@ -3,9 +3,9 @@ using Zenject;
 
 namespace Infrastructure.Tools
 {
-    public static class InstallerHelper
+    public static class InstallerTools
     {
-        public static TOut SelectImplementation<TOut, TAndroid, TIOS, TDefault>(DiContainer container)
+        public static TOut SelectImplementation<TOut, TAndroid, TIOS, TDefault>(InjectContext injectContext)
             where TAndroid : TOut
             where TIOS : TOut
             where TDefault : TOut
@@ -13,11 +13,11 @@ namespace Infrastructure.Tools
             TOut implementation;
 
             if (Application.platform == RuntimePlatform.Android)
-                implementation = container.Resolve<TAndroid>();
+                implementation = injectContext.Container.Instantiate<TAndroid>();
             else if (Application.platform == RuntimePlatform.IPhonePlayer)
-                implementation = container.Resolve<TIOS>();
+                implementation = injectContext.Container.Instantiate<TIOS>();
             else
-                implementation = container.Resolve<TDefault>();
+                implementation = injectContext.Container.Instantiate<TDefault>();
 
             return implementation;
         }
