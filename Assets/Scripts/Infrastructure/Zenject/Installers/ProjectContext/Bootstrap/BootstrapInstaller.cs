@@ -11,11 +11,13 @@ using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.StaticData;
 using Infrastructure.Services.StaticData.Core;
 using Infrastructure.Services.ToastMessage;
+using Infrastructure.Services.ToastMessage.Core;
 using Infrastructure.StateMachine.Game;
 using Infrastructure.StateMachine.Game.Factory;
 using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
+using Infrastructure.Tools;
 using Infrastructure.Transition;
 using UnityEngine;
 using Zenject;
@@ -59,8 +61,13 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<PersistentDataService>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
-            Container.BindInterfacesTo<ToastMessageService>().AsSingle();
+            Container.Bind<IToastMessageService>().FromMethod(GetToastMessageImplementation).AsSingle();
         }
+
+        private IToastMessageService GetToastMessageImplementation() =>
+            InstallerHelper
+                .SelectImplementation<IToastMessageService, AndroidToastMessageService, IOSToastMessageService, DefaultToastMessageService>(
+                    Container);
 
         private void BindScreenObserver() => Container.BindInterfacesAndSelfTo<ScreenObserver>().AsSingle();
 
