@@ -61,10 +61,10 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<PersistentDataService>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
-            Container.Bind<IToastMessageService>().FromMethod(GetToastMessageImplementation).AsSingle();
+            Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();
         }
 
-        private IToastMessageService GetToastMessageImplementation() =>
+        private IToastMessageService GetToastMessageServiceImpl() =>
             InstallerHelper
                 .SelectImplementation<IToastMessageService, AndroidToastMessageService, IOSToastMessageService, DefaultToastMessageService>(
                     Container);
