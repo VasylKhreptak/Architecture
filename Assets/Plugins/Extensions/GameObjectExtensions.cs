@@ -17,7 +17,9 @@ namespace Plugins.Extensions
             GameObject[] children = new GameObject[gameObject.transform.childCount];
 
             for (int i = 0; i < gameObject.transform.childCount; i++)
+            {
                 children[i] = gameObject.transform.GetChild(i).gameObject;
+            }
 
             return children;
         }

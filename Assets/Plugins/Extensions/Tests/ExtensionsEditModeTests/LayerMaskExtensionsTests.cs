@@ -12,7 +12,7 @@ namespace Plugins.Extensions.Tests.ExtensionsEditModeTests
             bool result = layerMask.ContainsLayer(0);
             Assert.IsTrue(result);
         }
-        
+
         [Test]
         public void NotContainsLayerTest()
         {

@@ -8,8 +8,10 @@ namespace Plugins.Extensions
         {
             Transform[] children = new Transform[transform.childCount];
 
-            for (var i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < transform.childCount; i++)
+            {
                 children[i] = transform.GetChild(i);
+            }
 
             return children;
         }

@@ -15,7 +15,7 @@ namespace Plugins.Extensions
 
             if (randomNumber >= totalWeight)
                 randomNumber = totalWeight - float.Epsilon;
-            
+
             float weightSum = 0;
             foreach (TSource item in enumerable)
             {

@@ -15,12 +15,12 @@ namespace Plugins.Extensions.Tests.ExtensionsPlayModeTests
             GameObject gameObject = new GameObject();
 
             Rigidbody component = gameObject.TryAddComponent<Rigidbody>();
-            
+
             Assert.IsNotNull(component);
             Assert.AreEqual(component, gameObject.GetComponent<Rigidbody>());
-            
+
             Rigidbody existingComponent = gameObject.TryAddComponent<Rigidbody>();
-                
+
             Assert.AreEqual(component, existingComponent);
         }
 
