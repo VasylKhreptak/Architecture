@@ -1,9 +1,11 @@
-﻿namespace Infrastructure.Graphics.UI.Windows.Core
+﻿using Cysharp.Threading.Tasks;
+
+namespace Infrastructure.Graphics.UI.Windows.Core
 {
     public interface IWindow
     {
-        public void Show();
+        public UniTask Show();
 
-        public void Hide();
+        public UniTask Hide();
     }
 }
