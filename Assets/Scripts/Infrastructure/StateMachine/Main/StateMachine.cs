@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Infrastructure.StateMachine.Main
 {
-    public class StateMachine<TBaseState> : IStateMachine<TBaseState>, ITickable, IDisposable
+    public class StateMachine<TBaseState> : IStateMachine<TBaseState>, IFixedTickable, ITickable, ILateTickable, IDisposable
     {
         private readonly IStateFactory _stateFactory;
 
@@ -53,7 +53,11 @@ namespace Infrastructure.StateMachine.Main
             return true;
         }
 
+        public void FixedTick() => _currentStateInfo?.FixedTick();
+
         public void Tick() => _currentStateInfo?.Tick();
+
+        public void LateTick() => _currentStateInfo?.LateTick();
 
         public void Dispose()
         {
