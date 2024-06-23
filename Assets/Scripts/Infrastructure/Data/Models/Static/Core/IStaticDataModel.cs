@@ -1,9 +1,9 @@
+using Infrastructure.Data.Models.Static.Data;
 using Infrastructure.Data.SaveLoad.Core;
-using Infrastructure.Data.Static;
 
-namespace Infrastructure.Services.StaticData.Core
+namespace Infrastructure.Data.Models.Static.Core
 {
-    public interface IStaticDataService : ILoadHandler
+    public interface IStaticDataModel : ILoadHandler
     {
         public Config Config { get; }
         public Balance Balance { get; }

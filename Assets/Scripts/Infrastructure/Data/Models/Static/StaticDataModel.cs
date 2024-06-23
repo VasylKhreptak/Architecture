@@ -1,10 +1,10 @@
-﻿using Infrastructure.Data.Static;
-using Infrastructure.Services.StaticData.Core;
+﻿using Infrastructure.Data.Models.Static.Core;
+using Infrastructure.Data.Models.Static.Data;
 using UnityEngine;
 
-namespace Infrastructure.Services.StaticData
+namespace Infrastructure.Data.Models.Static
 {
-    public class StaticDataService : IStaticDataService
+    public class StaticDataModel : IStaticDataModel
     {
         private const string GameConfigPath = "StaticData/GameConfig";
         private const string GameBalancePath = "StaticData/GameBalance";

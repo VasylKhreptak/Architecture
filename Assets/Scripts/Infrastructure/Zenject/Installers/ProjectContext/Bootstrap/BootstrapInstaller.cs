@@ -1,5 +1,8 @@
 ﻿using DebuggerOptions;
 using Infrastructure.Coroutines.Runner;
+using Infrastructure.Data.Models.Persistent;
+using Infrastructure.Data.Models.Static;
+using Infrastructure.Data.Models.Static.Core;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
 using Infrastructure.SceneManagement;
@@ -7,10 +10,7 @@ using Infrastructure.SceneTransition;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.Log;
-using Infrastructure.Services.PersistentData;
 using Infrastructure.Services.SaveLoad;
-using Infrastructure.Services.StaticData;
-using Infrastructure.Services.StaticData.Core;
 using Infrastructure.Services.ToastMessage;
 using Infrastructure.Services.ToastMessage.Core;
 using Infrastructure.StateMachine.Game;
@@ -33,6 +33,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         public override void InstallBindings()
         {
+            BindDataModels();
             BindMonoServices();
             BindSceneLoader();
             BindServices();
@@ -52,13 +53,17 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<TransitionScreen>().FromComponentInNewPrefab(_transitionScreenPrefab).AsSingle();
         }
 
+        private void BindDataModels()
+        {
+            Container.BindInterfacesTo<StaticDataModel>().AsSingle();
+            Container.Resolve<IStaticDataModel>().Load();
+            Container.BindInterfacesTo<PersistentDataModel>().AsSingle();
+        }
+
         private void BindServices()
         {
             Container.BindInterfacesTo<IDService>().AsSingle();
             Container.BindInterfacesTo<LogService>().AsSingle();
-            Container.BindInterfacesTo<StaticDataService>().AsSingle();
-            Container.Resolve<IStaticDataService>().Load();
-            Container.BindInterfacesTo<PersistentDataService>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();

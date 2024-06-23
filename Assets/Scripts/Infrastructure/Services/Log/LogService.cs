@@ -1,5 +1,5 @@
-﻿using Infrastructure.Services.Log.Core;
-using Infrastructure.Services.StaticData.Core;
+﻿using Infrastructure.Data.Models.Static.Core;
+using Infrastructure.Services.Log.Core;
 using UnityEngine;
 using Zenject;
 using LogType = Infrastructure.Services.Log.Core.LogType;
@@ -8,29 +8,29 @@ namespace Infrastructure.Services.Log
 {
     public class LogService : ILogService
     {
-        private IStaticDataService _staticDataService;
+        private IStaticDataModel _staticDataModel;
 
         [Inject]
-        private void Constructor(IStaticDataService staticDataService)
+        private void Constructor(IStaticDataModel staticDataModel)
         {
-            _staticDataService = staticDataService;
+            _staticDataModel = staticDataModel;
         }
 
         public void Log(object message, Object context)
         {
-            if (_staticDataService.Config.LogType.HasFlag(LogType.Info))
+            if (_staticDataModel.Config.LogType.HasFlag(LogType.Info))
                 Debug.Log(message, context);
         }
 
         public void LogWarning(object message, Object context)
         {
-            if (_staticDataService.Config.LogType.HasFlag(LogType.Warning))
+            if (_staticDataModel.Config.LogType.HasFlag(LogType.Warning))
                 Debug.LogWarning(message, context);
         }
 
         public void LogError(object message, Object context)
         {
-            if (_staticDataService.Config.LogType.HasFlag(LogType.Error))
+            if (_staticDataModel.Config.LogType.HasFlag(LogType.Error))
                 Debug.LogError(message, context);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
+using Infrastructure.Data.Models.Persistent.Core;
 using Infrastructure.Services.Log.Core;
-using Infrastructure.Services.PersistentData.Core;
 using Infrastructure.Services.SaveLoad.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
@@ -12,15 +12,15 @@ namespace Infrastructure.StateMachine.Game.States
     {
         private const string Key = "Data";
 
-        private readonly IPersistentDataService _persistentDataService;
+        private readonly IPersistentDataModel _persistentDataModel;
         private readonly IStateMachine<IGameState> _gameStateMachine;
         private readonly ILogService _logService;
         private readonly ISaveLoadService _saveLoadService;
 
-        public SaveDataState(IPersistentDataService persistentDataService,
+        public SaveDataState(IPersistentDataModel persistentDataModel,
             IStateMachine<IGameState> gameStateMachine, ILogService logService, ISaveLoadService saveLoadService)
         {
-            _persistentDataService = persistentDataService;
+            _persistentDataModel = persistentDataModel;
             _gameStateMachine = gameStateMachine;
             _logService = logService;
             _saveLoadService = saveLoadService;
@@ -29,7 +29,7 @@ namespace Infrastructure.StateMachine.Game.States
         public void Enter(Action onComplete)
         {
             _logService.Log("SaveDataState");
-            _saveLoadService.Save(Key, _persistentDataService.Data);
+            _saveLoadService.Save(Key, _persistentDataModel.Data);
             _gameStateMachine.Enter<GameLoopState>();
             onComplete?.Invoke();
         }

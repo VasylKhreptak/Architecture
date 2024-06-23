@@ -2,7 +2,7 @@ using Udar.SceneManager;
 using UnityEngine;
 using LogType = Infrastructure.Services.Log.Core.LogType;
 
-namespace Infrastructure.Data.Static
+namespace Infrastructure.Data.Models.Static.Data
 {
     [CreateAssetMenu(fileName = "GameConfig", menuName = "ScriptableObjects/Static/GameConfig", order = 0)]
     public class Config : ScriptableObject

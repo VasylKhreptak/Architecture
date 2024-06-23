@@ -1,8 +1,7 @@
-﻿using Infrastructure.Data.Static.Core;
-using Infrastructure.Serialization;
+﻿using Infrastructure.Serialization;
 using UnityEngine;
 
-namespace Infrastructure.Data.Static
+namespace Infrastructure.Data.Models.Static.Data
 {
     [CreateAssetMenu(fileName = "GamePrefabs", menuName = "ScriptableObjects/Static/GamePrefabs", order = 0)]
     public class Prefabs : ScriptableObject
