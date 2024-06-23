@@ -1,7 +1,7 @@
 ﻿using System;
 using Infrastructure.Data.Models.Persistent.Core;
+using Infrastructure.Services.AsyncSaveLoad.Core;
 using Infrastructure.Services.Log.Core;
-using Infrastructure.Services.SaveLoad.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.StateMachine.Main.States.Core;
@@ -15,10 +15,10 @@ namespace Infrastructure.StateMachine.Game.States
         private readonly IPersistentDataModel _persistentDataModel;
         private readonly IStateMachine<IGameState> _gameStateMachine;
         private readonly ILogService _logService;
-        private readonly ISaveLoadService _saveLoadService;
+        private readonly IAsyncSaveLoadService _saveLoadService;
 
-        public SaveDataState(IPersistentDataModel persistentDataModel,
-            IStateMachine<IGameState> gameStateMachine, ILogService logService, ISaveLoadService saveLoadService)
+        public SaveDataState(IPersistentDataModel persistentDataModel, IStateMachine<IGameState> gameStateMachine, ILogService logService,
+            IAsyncSaveLoadService saveLoadService)
         {
             _persistentDataModel = persistentDataModel;
             _gameStateMachine = gameStateMachine;
@@ -26,10 +26,14 @@ namespace Infrastructure.StateMachine.Game.States
             _saveLoadService = saveLoadService;
         }
 
-        public void Enter(Action onComplete)
+        public async void Enter(Action onComplete)
         {
             _logService.Log("SaveDataState");
-            _saveLoadService.Save(Key, _persistentDataModel.Data);
+
+            await _saveLoadService.SaveAsync(Key, _persistentDataModel.Data);
+
+            _logService.Log("Saved local data");
+
             _gameStateMachine.Enter<GameLoopState>();
             onComplete?.Invoke();
         }

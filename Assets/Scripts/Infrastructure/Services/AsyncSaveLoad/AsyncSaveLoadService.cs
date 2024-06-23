@@ -1,40 +1,41 @@
 ﻿using System;
 using System.IO;
-using Infrastructure.Services.Json.Core;
-using Infrastructure.Services.SaveLoad.Core;
+using Cysharp.Threading.Tasks;
+using Infrastructure.Services.AsyncJson.Core;
+using Infrastructure.Services.AsyncSaveLoad.Core;
 using UnityEngine;
 
-namespace Infrastructure.Services.SaveLoad
+namespace Infrastructure.Services.AsyncSaveLoad
 {
-    public class SaveLoadService : ISaveLoadService
+    public class AsyncSaveLoadService : IAsyncSaveLoadService
     {
-        private readonly IJsonService _jsonService;
+        private readonly IAsyncJsonService _jsonService;
 
-        public SaveLoadService(IJsonService jsonService)
+        public AsyncSaveLoadService(IAsyncJsonService jsonService)
         {
             _jsonService = jsonService;
         }
 
-        public void Save<T>(string key, T data)
+        public async UniTask SaveAsync<T>(string key, T data)
         {
-            string jsonData = _jsonService.Serialize(data);
+            string jsonData = await _jsonService.SerializeAsync(data);
 
             string path = GetPath(key);
 
-            File.WriteAllText(path, jsonData);
+            await File.WriteAllTextAsync(path, jsonData);
         }
 
-        public T Load<T>(string key, T defaultValue = default)
+        public async UniTask<T> LoadAsync<T>(string key, T defaultValue = default)
         {
             string path = GetPath(key);
 
             if (File.Exists(path))
             {
-                string jsonData = File.ReadAllText(path);
+                string jsonData = await File.ReadAllTextAsync(path);
 
                 try
                 {
-                    T instance = _jsonService.Deserialize<T>(jsonData);
+                    T instance = await _jsonService.DeserializeAsync<T>(jsonData);
 
                     if (instance == null)
                         return defaultValue;
@@ -57,12 +58,12 @@ namespace Infrastructure.Services.SaveLoad
             return File.Exists(path);
         }
 
-        public void Delete(string key)
+        public async UniTask DeleteAsync(string key)
         {
             string path = GetPath(key);
 
             if (File.Exists(path))
-                File.Delete(path);
+                await UniTask.RunOnThreadPool(() => File.Delete(path));
         }
 
         private string GetPath(string key) => Path.Combine(Application.persistentDataPath, key);

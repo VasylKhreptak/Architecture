@@ -7,8 +7,11 @@ using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
 using Infrastructure.SceneManagement;
 using Infrastructure.SceneTransition;
+using Infrastructure.Services.AsyncJson;
+using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
+using Infrastructure.Services.Json;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.Services.ToastMessage;
@@ -62,10 +65,13 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         private void BindServices()
         {
+            Container.BindInterfacesTo<JsonService>().AsSingle();
+            Container.BindInterfacesTo<AsyncJsonService>().AsSingle();
             Container.BindInterfacesTo<IDService>().AsSingle();
             Container.BindInterfacesTo<LogService>().AsSingle();
             Container.BindInterfacesTo<FramerateService>().AsSingle();
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
+            Container.BindInterfacesTo<AsyncSaveLoadService>().AsSingle();
             Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();
         }
 
