@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using DebuggerOptions.Core;
-using Infrastructure.SceneTransition.Core;
 using Infrastructure.Services.ToastMessage.Core;
 using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
+using Infrastructure.UI.TransitionScreen.Core;
 
 namespace DebuggerOptions
 {

@@ -6,7 +6,6 @@ using Infrastructure.Data.Models.Static.Core;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
 using Infrastructure.SceneManagement;
-using Infrastructure.SceneTransition;
 using Infrastructure.Services.AsyncJson;
 using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.Framerate;
@@ -22,6 +21,7 @@ using Infrastructure.StateMachine.Game.States;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
 using Infrastructure.Tools;
+using Infrastructure.UI.TransitionScreen;
 using UnityEngine;
 using Zenject;
 
