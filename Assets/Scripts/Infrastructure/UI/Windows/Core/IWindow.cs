@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 
-namespace Infrastructure.Graphics.UI.Windows.Core
+namespace Infrastructure.UI.Windows.Core
 {
     public interface IWindow
     {
