@@ -5,14 +5,15 @@ using Infrastructure.Data.Models.Static;
 using Infrastructure.Data.Models.Static.Core;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
-using Infrastructure.SceneManagement;
 using Infrastructure.Services.AsyncJson;
 using Infrastructure.Services.AsyncSaveLoad;
+using Infrastructure.Services.AsyncScene;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
 using Infrastructure.Services.Json;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.SaveLoad;
+using Infrastructure.Services.Scene;
 using Infrastructure.Services.ToastMessage;
 using Infrastructure.Services.ToastMessage.Core;
 using Infrastructure.StateMachine.Game;
@@ -38,7 +39,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
         {
             BindDataModels();
             BindMonoServices();
-            BindSceneLoader();
             BindServices();
             BindScreenObserver();
             BindGameStateMachine();
@@ -65,6 +65,8 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
 
         private void BindServices()
         {
+            Container.BindInterfacesTo<SceneService>().AsSingle();
+            Container.BindInterfacesTo<AsyncSceneService>().AsSingle();
             Container.BindInterfacesTo<JsonService>().AsSingle();
             Container.BindInterfacesTo<AsyncJsonService>().AsSingle();
             Container.BindInterfacesTo<IDService>().AsSingle();
@@ -80,8 +82,6 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
                 .SelectImplementation<IToastMessageService, AndroidToastMessageService, IOSToastMessageService, DefaultToastMessageService>(context);
 
         private void BindScreenObserver() => Container.BindInterfacesAndSelfTo<ScreenObserver>().AsSingle();
-
-        private void BindSceneLoader() => Container.BindInterfacesTo<SceneLoader>().AsSingle();
 
         private void BindGameStateMachine()
         {

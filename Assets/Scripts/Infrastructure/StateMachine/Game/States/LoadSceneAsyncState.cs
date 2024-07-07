@@ -1,5 +1,5 @@
 ﻿using System;
-using Infrastructure.SceneManagement.Core;
+using Infrastructure.Services.AsyncScene.Core;
 using Infrastructure.Services.Log.Core;
 using Infrastructure.StateMachine.Game.States.Core;
 using Infrastructure.StateMachine.Main.Core;
@@ -10,13 +10,13 @@ namespace Infrastructure.StateMachine.Game.States
     public class LoadSceneAsyncState : IPayloadedState<LoadSceneAsyncState.Payload>, IGameState
     {
         private readonly IStateMachine<IGameState> _gameStateMachine;
-        private readonly ISceneLoader _sceneLoader;
+        private readonly IAsyncSceneService _sceneService;
         private readonly ILogService _logService;
 
-        public LoadSceneAsyncState(IStateMachine<IGameState> gameStateMachine, ISceneLoader sceneLoader, ILogService logService)
+        public LoadSceneAsyncState(IStateMachine<IGameState> gameStateMachine, IAsyncSceneService sceneService, ILogService logService)
         {
             _gameStateMachine = gameStateMachine;
-            _sceneLoader = sceneLoader;
+            _sceneService = sceneService;
             _logService = logService;
         }
 
@@ -24,8 +24,10 @@ namespace Infrastructure.StateMachine.Game.States
         {
             _logService.Log($"LoadSceneAsyncState: {payload.SceneName}");
 
-            await _sceneLoader.LoadAsync(payload.SceneName);
+            await _sceneService.Load(payload.SceneName);
+
             _gameStateMachine.Enter<GameLoopState>();
+
             payload.OnComplete?.Invoke();
         }
 
