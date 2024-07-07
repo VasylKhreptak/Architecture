@@ -29,7 +29,7 @@ namespace Infrastructure.StateMachine.Game.States
 
             LoadSceneAsyncState.Payload payload = new LoadSceneAsyncState.Payload
             {
-                SceneName = _staticDataModel.Config.MainScene.Name,
+                SceneName = _staticDataModel.Config.MainScene,
                 OnComplete = OnSceneLoaded
             };
 

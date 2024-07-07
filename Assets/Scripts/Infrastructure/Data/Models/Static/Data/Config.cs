@@ -15,8 +15,8 @@ namespace Infrastructure.Data.Models.Static.Data
         [SerializeField] private LogType _editorLogType = LogType.Info;
         [SerializeField] private LogType _buildLogType = LogType.Info;
 
-        public SceneField BootstrapScene => _bootstrapScene;
-        public SceneField MainScene => _mainScene;
+        public string BootstrapScene => _bootstrapScene.Name;
+        public string MainScene => _mainScene.Name;
 
         public LogType LogType => Application.isEditor ? _editorLogType : _buildLogType;
     }
