@@ -1,5 +1,6 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Infrastructure.Tools;
 using Infrastructure.UI.TransitionScreen.Core;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Infrastructure.UI.TransitionScreen
         [SerializeField] private float _duration = 0.5f;
         [SerializeField] private AnimationCurve _curve;
 
-        private Tween _tween;
+        private readonly AutoResetCancellationTokenSource _cts = new AutoResetCancellationTokenSource();
 
         #region MonoBehaviour
 
@@ -22,47 +23,46 @@ namespace Infrastructure.UI.TransitionScreen
 
         private void Awake() => HideImmediately();
 
-        private void OnDestroy() => _tween?.Kill();
+        private void OnDestroy() => _cts.Cancel();
 
         #endregion
 
-        public void Show(Action onComplete = null)
+        public UniTask Show()
         {
             gameObject.SetActive(true);
-            SetAlphaSmooth(1, onComplete);
+            return SetAlphaSmooth(1f);
         }
 
-        public void Hide(Action onComplete = null)
+        public async UniTask Hide()
         {
-            SetAlphaSmooth(0, () =>
-            {
-                gameObject.SetActive(false);
-                onComplete?.Invoke();
-            });
+            await SetAlphaSmooth(0);
+
+            gameObject.SetActive(false);
         }
 
         public void ShowImmediately()
         {
-            _tween?.Kill();
+            _cts.Cancel();
             _canvasGroup.alpha = 1;
             gameObject.SetActive(true);
         }
 
         public void HideImmediately()
         {
-            _tween?.Kill();
+            _cts.Cancel();
             _canvasGroup.alpha = 0;
             gameObject.SetActive(false);
         }
 
-        private void SetAlphaSmooth(float alpha, Action onComplete)
+        private UniTask SetAlphaSmooth(float alpha)
         {
-            _tween?.Kill();
-            _tween = _canvasGroup
+            _cts.Cancel();
+            return _canvasGroup
                 .DOFade(alpha, _duration)
                 .SetEase(_curve)
-                .OnComplete(() => onComplete?.Invoke())
-                .Play();
+                .Play()
+                .WithCancellation(_cts.Token)
+                .SuppressCancellationThrow();
         }
     }
 }

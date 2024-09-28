@@ -41,7 +41,8 @@ namespace Infrastructure.LoadingScreen
                 .DOAnchorPosY(_rectTransform.rect.height, _duration)
                 .SetEase(_ease)
                 .Play()
-                .WithCancellation(_cts.Token);
+                .WithCancellation(_cts.Token)
+                .SuppressCancellationThrow();
 
             gameObject.SetActive(false);
         }

@@ -20,15 +20,15 @@ namespace Infrastructure.StateMachine.Game.States
             _logService = logService;
         }
 
-        public void Enter(LoadSceneAsyncState.Payload payload)
+        public async void Enter(LoadSceneAsyncState.Payload payload)
         {
             _logService.Log($"LoadSceneWithTransitionAsyncState: {payload.SceneName}");
-            _transitionScreen.Show(() =>
-            {
-                payload.OnComplete += () => _transitionScreen.Hide();
 
-                _stateMachine.Enter<LoadSceneAsyncState, LoadSceneAsyncState.Payload>(payload);
-            });
+            await _transitionScreen.Show();
+
+            payload.OnComplete += () => _transitionScreen.Hide();
+
+            _stateMachine.Enter<LoadSceneAsyncState, LoadSceneAsyncState.Payload>(payload);
         }
     }
 }

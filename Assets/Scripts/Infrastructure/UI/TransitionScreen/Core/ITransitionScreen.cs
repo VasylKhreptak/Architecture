@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 
 namespace Infrastructure.UI.TransitionScreen.Core
 {
     public interface ITransitionScreen
     {
-        public void Show(Action onComplete = null);
+        public UniTask Show();
 
-        public void Hide(Action onComplete = null);
+        public UniTask Hide();
 
         public void ShowImmediately();
 

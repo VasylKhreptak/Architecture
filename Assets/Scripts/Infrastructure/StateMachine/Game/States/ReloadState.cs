@@ -20,17 +20,16 @@ namespace Infrastructure.StateMachine.Game.States
             _transitionScreen = transitionScreen;
         }
 
-        public void Enter()
+        public async void Enter()
         {
             _logService.Log("ReloadState");
 
-            _transitionScreen.Show(() =>
+            await _transitionScreen.Show();
+
+            _stateMachine.Enter<SaveDataState, Action>(() =>
             {
-                _stateMachine.Enter<SaveDataState, Action>(() =>
-                {
-                    _stateMachine.Enter<BootstrapState>();
-                    _transitionScreen.HideImmediately();
-                });
+                _stateMachine.Enter<BootstrapState>();
+                _transitionScreen.HideImmediately();
             });
         }
     }
