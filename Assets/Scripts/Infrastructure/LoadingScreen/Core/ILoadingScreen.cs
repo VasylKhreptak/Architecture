@@ -1,11 +1,12 @@
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace Infrastructure.LoadingScreen.Core
 {
     public interface ILoadingScreen
     {
-        public void Show();
+        public UniTask Show();
 
-        public void Hide(Action onComplete = null);
+        public UniTask Hide();
     }
 }

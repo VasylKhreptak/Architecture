@@ -1,6 +1,7 @@
-using System;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Infrastructure.LoadingScreen.Core;
+using Infrastructure.Tools;
 using UnityEngine;
 
 namespace Infrastructure.LoadingScreen
@@ -14,36 +15,35 @@ namespace Infrastructure.LoadingScreen
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
 
-        private Tween _moveTween;
+        private readonly AutoResetCancellationTokenSource _cts = new AutoResetCancellationTokenSource();
 
         #region MonoBehaviour
 
-        private void OnDestroy() => _moveTween?.Kill();
+        private void OnDestroy() => _cts.Cancel();
 
         #endregion
 
-        public void Show()
+        public UniTask Show()
         {
-            _moveTween?.Kill();
+            _cts.Cancel();
             _rectTransform.anchoredPosition = Vector2.zero;
             gameObject.SetActive(true);
+            return UniTask.CompletedTask;
         }
 
-        public void Hide(Action onComplete = null)
+        public async UniTask Hide()
         {
             if (gameObject.activeSelf == false)
                 return;
 
-            _moveTween?.Kill();
-            _moveTween = _rectTransform
+            _cts.Cancel();
+            await _rectTransform
                 .DOAnchorPosY(_rectTransform.rect.height, _duration)
-                .OnComplete(() =>
-                {
-                    gameObject.SetActive(false);
-                    onComplete?.Invoke();
-                })
                 .SetEase(_ease)
-                .Play();
+                .Play()
+                .WithCancellation(_cts.Token);
+
+            gameObject.SetActive(false);
         }
     }
 }
