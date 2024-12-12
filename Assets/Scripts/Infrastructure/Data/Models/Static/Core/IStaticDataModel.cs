@@ -7,6 +7,5 @@ namespace Infrastructure.Data.Models.Static.Core
     {
         public Config Config { get; }
         public Balance Balance { get; }
-        public Prefabs Prefabs { get; }
     }
 }

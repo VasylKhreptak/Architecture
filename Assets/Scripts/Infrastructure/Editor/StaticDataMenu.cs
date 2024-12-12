@@ -8,10 +8,7 @@ namespace Infrastructure.Editor
         [MenuItem("Game/⚙ Config %F1")]
         public static void OpenGameConfig() => SelectObject("Assets/Resources/StaticData/GameConfig.asset");
 
-        [MenuItem("Game/🧊 Prefabs %F2")]
-        public static void OpenGamePrefabs() => SelectObject("Assets/Resources/StaticData/GamePrefabs.asset");
-
-        [MenuItem("Game/📈 Balance %F3")]
+        [MenuItem("Game/📈 Balance %F2")]
         public static void OpenGameBalance() => SelectObject("Assets/Resources/StaticData/GameBalance.asset");
 
         private static void SelectObject(string path)
