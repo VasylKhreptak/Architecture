@@ -5,6 +5,7 @@ using Infrastructure.Data.Models.Static;
 using Infrastructure.Data.Models.Static.Core;
 using Infrastructure.Data.SaveLoad;
 using Infrastructure.Observers.Screen;
+using Infrastructure.Services.Asset;
 using Infrastructure.Services.AsyncJson;
 using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.AsyncScene;
@@ -75,6 +76,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             Container.BindInterfacesTo<AsyncSaveLoadService>().AsSingle();
             Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();
+            Container.BindInterfacesTo<AssetService>().AsSingle();
         }
 
         private IToastMessageService GetToastMessageServiceImpl(InjectContext context) =>
