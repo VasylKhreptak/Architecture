@@ -11,6 +11,7 @@ using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.AsyncScene;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
+using Infrastructure.Services.Instantiation;
 using Infrastructure.Services.Json;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.SaveLoad;
@@ -77,6 +78,7 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<AsyncSaveLoadService>().AsSingle();
             Container.Bind<IToastMessageService>().FromMethod(GetToastMessageServiceImpl).AsSingle();
             Container.BindInterfacesTo<AssetService>().AsSingle();
+            Container.BindInterfacesTo<InstantiateService>().AsSingle();
         }
 
         private IToastMessageService GetToastMessageServiceImpl(InjectContext context) =>
@@ -119,6 +121,5 @@ namespace Infrastructure.Zenject.Installers.ProjectContext.Bootstrap
             Container.BindInterfacesTo<GameOptions>().AsSingle();
         }
 
-        private void MakeInitializable() => Container.Bind<IInitializable>().FromInstance(this).AsSingle();
-    }
+        private void MakeInitializable() => Container.Bind<IInitializable>().FromInstance(this).AsSingle();    }
 }
