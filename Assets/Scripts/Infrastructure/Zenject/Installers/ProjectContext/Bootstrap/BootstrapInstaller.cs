@@ -11,7 +11,7 @@ using Infrastructure.Services.AsyncSaveLoad;
 using Infrastructure.Services.AsyncScene;
 using Infrastructure.Services.Framerate;
 using Infrastructure.Services.ID;
-using Infrastructure.Services.Instantiation;
+using Infrastructure.Services.Instantiate;
 using Infrastructure.Services.Json;
 using Infrastructure.Services.Log;
 using Infrastructure.Services.SaveLoad;

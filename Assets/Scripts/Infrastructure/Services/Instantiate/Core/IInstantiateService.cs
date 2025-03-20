@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Infrastructure.Services.Instantiation.Core
+namespace Infrastructure.Services.Instantiate.Core
 {
     public interface IInstantiateService
     {

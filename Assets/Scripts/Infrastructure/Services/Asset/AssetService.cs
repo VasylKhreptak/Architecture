@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Infrastructure.Services.Asset.Core;
-using Infrastructure.Services.Instantiation.Core;
+using Infrastructure.Services.Instantiate.Core;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
